@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinapsys — Psicología Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:     #0E2651;
+    --navy-mid: #1a3a70;
+    --purple:   #873CA0;
+    --purple-light: #a855c8;
+    --blue:     #297ABF;
+    --green-dark: #263D0B;
+    --green:    #577019;
+    --yellow:   #F3CB04;
+    --dark:     #212121;
+    --mid:      #5B5B5B;
+    --light:    #f5f5f5;
+    --white:    #ffffff;
+
+    --grad-main: linear-gradient(135deg, #0E2651 0%, #873CA0 100%);
+    --grad-green: linear-gradient(135deg, #263D0B 0%, #577019 100%);
+    --grad-blue-purple: linear-gradient(135deg, #297ABF 0%, #873CA0 100%);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #0a0f1e;
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── NEURON SVG SYMBOL ─── */
+  .neuron-bg {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.06;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 15, 30, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .logo-text {
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .logo-neuron {
+    width: 28px;
+    height: 18px;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+
+  nav a:hover { color: var(--yellow); }
+
+  .nav-cta {
+    background: var(--grad-main) !important;
+    color: white !important;
+    padding: 0.6rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    transition: opacity 0.3s !important;
+  }
+  .nav-cta:hover { opacity: 0.85; color: white !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 9rem 5rem 5rem;
+    overflow: hidden;
+  }
+
+  /* gradient mesh bg */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(135,60,160,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 20% 80%, rgba(14,38,81,0.8) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 100% at 50% 50%, #080c1a 40%, #0E2651 100%);
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 660px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 2rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .eyebrow-dot {
+    width: 6px; height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+
+  h1 {
+    font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  h1 .accent {
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn-main {
+    background: var(--grad-main);
+    color: white;
+    padding: 1rem 2.2rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: transform 0.2s, opacity 0.3s;
+    display: inline-block;
+    box-shadow: 0 8px 40px rgba(135,60,160,0.4);
+  }
+
+  .btn-main:hover { transform: translateY(-2px); opacity: 0.9; }
+
+  .btn-yellow {
+    background: var(--yellow);
+    color: var(--navy);
+    padding: 1rem 2.2rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: transform 0.2s;
+    display: inline-block;
+    box-shadow: 0 8px 30px rgba(243,203,4,0.35);
+  }
+
+  .btn-yellow:hover { transform: translateY(-2px); }
+
+  /* large decorative neuron right side */
+  .hero-deco {
+    position: absolute;
+    right: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-52%) translateX(8px); }
+  }
+
+  /* ─── STATS STRIP ─── */
+  .stats-strip {
+    background: rgba(255,255,255,0.04);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 2.5rem 5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 2.8rem;
+    font-weight: 900;
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ─── SECTION BASE ─── */
+  .section {
+    padding: 7rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+
+  h2 .accent-purple {
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h2 .accent-yellow { color: var(--yellow); }
+
+  .section-desc {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  /* ─── SERVICES ─── */
+  #servicios {
+    padding: 7rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .service-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.25rem;
+    padding: 2.25rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grad-main);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--purple);
+  }
+
+  .service-card:hover::before { opacity: 0.08; }
+
+  .service-card > * { position: relative; z-index: 1; }
+
+  .service-icon-wrap {
+    width: 3rem; height: 3rem;
+    border-radius: 0.75rem;
+    background: rgba(135,60,160,0.2);
+    border: 1px solid rgba(135,60,160,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+  }
+
+  .service-tag {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    border: 1px solid rgba(243,203,4,0.3);
+    border-radius: 1rem;
+    padding: 0.2rem 0.7rem;
+    font-weight: 700;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how-section {
+    background: rgba(14,38,81,0.3);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 7rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .how-inner { max-width: 1280px; margin: 0 auto; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 2.25rem;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(135,60,160,0.5), rgba(41,122,191,0.5), transparent);
+  }
+
+  .step { text-align: center; position: relative; }
+
+  .step-circle {
+    width: 4.5rem; height: 4.5rem;
+    border-radius: 50%;
+    background: var(--grad-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+    box-shadow: 0 0 30px rgba(135,60,160,0.4);
+  }
+
+  .step h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .step p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.65;
+  }
+
+  /* ─── ABOUT ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-card-main {
+    background: var(--grad-main);
+    border-radius: 2rem;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card-main::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+
+  .about-card-main > * { position: relative; z-index: 1; }
+
+  .about-quote {
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-name {
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .about-role {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    letter-spacing: 0.08em;
+  }
+
+  .about-text p {
+    color: rgba(255,255,255,0.6);
+    line-height: 1.85;
+    margin-bottom: 1.1rem;
+    font-size: 0.95rem;
+  }
+
+  .credentials {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .cred-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .cred-dot {
+    width: 6px; height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials-bg {
+    background: rgba(38,61,11,0.2);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 7rem 5rem;
+  }
+
+  .testimonials-inner { max-width: 1280px; margin: 0 auto; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .testimonial-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--green);
+    transform: translateY(-3px);
+  }
+
+  .stars { color: var(--yellow); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+
+  .testimonial-card p {
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 1.5rem;
+  }
+
+  .t-author { display: flex; align-items: center; gap: 0.75rem; }
+
+  .t-avatar {
+    width: 2.5rem; height: 2.5rem;
+    border-radius: 50%;
+    background: var(--grad-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .t-name { font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .t-sub { font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+
+  /* ─── PRICING ─── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .pricing-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .pricing-card:hover { transform: translateY(-4px); }
+
+  .pricing-card.featured {
+    background: var(--grad-main);
+    border-color: transparent;
+    box-shadow: 0 20px 60px rgba(135,60,160,0.4);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -0.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--yellow);
+    color: var(--navy);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 1rem;
+    white-space: nowrap;
+  }
+
+  .pricing-name {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-card.featured .pricing-name { color: rgba(255,255,255,0.8); }
+
+  .pricing-amount {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .pricing-period {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 2rem;
+  }
+
+  .pricing-card.featured .pricing-period { color: rgba(255,255,255,0.65); }
+
+  .pricing-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .pricing-features li {
+    padding: 0.55rem 0;
+    font-size: 0.88rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .pricing-features li::before { content: '✓'; color: var(--yellow); font-weight: 900; font-size: 0.8rem; }
+
+  .pricing-card.featured .pricing-features li { border-bottom-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); }
+
+  .btn-pricing-yellow {
+    display: block;
+    background: var(--yellow);
+    color: var(--navy);
+    padding: 0.9rem 1.5rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+  }
+  .btn-pricing-yellow:hover { opacity: 0.85; }
+
+  .btn-pricing-ghost {
+    display: block;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 0.9rem 1.5rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: border-color 0.3s;
+  }
+  .btn-pricing-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  /* ─── FAQ ─── */
+  .faq-list {
+    margin-top: 3.5rem;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 1.5rem 0;
+    cursor: pointer;
+  }
+
+  .faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    gap: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    width: 1.75rem; height: 1.75rem;
+    border-radius: 50%;
+    background: rgba(135,60,160,0.25);
+    border: 1px solid rgba(135,60,160,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--purple-light);
+    transition: transform 0.3s, background 0.3s;
+  }
+
+  .faq-item.open .faq-icon {
+    transform: rotate(45deg);
+    background: rgba(135,60,160,0.5);
+  }
+
+  .faq-a {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.75;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    font-weight: 300;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 200px;
+    padding-top: 1rem;
+  }
+
+  /* ─── CTA FINAL ─── */
+  .cta-section {
+    background: var(--grad-main);
+    padding: 8rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+
+  .cta-section > * { position: relative; z-index: 1; }
+
+  .cta-section h2 {
+    color: white;
+    max-width: 700px;
+    margin: 0 auto 1.25rem;
+  }
+
+  .cta-section p {
+    color: rgba(255,255,255,0.7);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-cta-yellow {
+    background: var(--yellow);
+    color: var(--navy);
+    padding: 1rem 2.2rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: transform 0.2s;
+    box-shadow: 0 8px 30px rgba(243,203,4,0.35);
+  }
+
+  .btn-cta-yellow:hover { transform: translateY(-2px); }
+
+  .btn-cta-white {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 1rem 2.2rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: background 0.3s;
+  }
+
+  .btn-cta-white:hover { background: rgba(255,255,255,0.25); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #060913;
+    padding: 4.5rem 5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-brand { }
+
+  .footer-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo-text {
+    font-weight: 900;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-desc {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.75;
+    max-width: 280px;
+  }
+
+  .footer-col h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.2rem;
+    font-weight: 900;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col li { margin-bottom: 0.6rem; }
+
+  .footer-col a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 0.88rem;
+    transition: color 0.3s;
+  }
+
+  .footer-col a:hover { color: var(--yellow); }
+
+  .footer-bottom {
+    background: #060913;
+    padding: 1.5rem 5rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    nav { padding: 1.25rem 2rem; }
+    nav ul { display: none; }
+    .hero { padding: 7rem 2rem 4rem; }
+    .hero-deco { display: none; }
+    .stats-strip { grid-template-columns: 1fr 1fr; padding: 2rem; }
+    .section, #servicios { padding: 4.5rem 2rem; }
+    .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .services-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .how-section, .testimonials-bg { padding: 4.5rem 2rem; }
+    footer { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 2rem; }
+    .footer-bottom { padding: 1.25rem 2rem; flex-direction: column; gap: 0.5rem; }
+    .cta-section { padding: 5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo-text">
+    <svg class="logo-neuron" viewBox="0 0 60 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 20 C8 20 16 8 28 18 C36 25 44 10 52 14" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <circle cx="8" cy="20" r="5" fill="white"/>
+      <circle cx="52" cy="14" r="5" fill="white"/>
+      <circle cx="28" cy="18" r="3.5" fill="rgba(255,255,255,0.6)"/>
+    </svg>
+    SINAPSYS
+  </a>
+  <ul>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#sobre-mi">Nosotros</a></li>
+    <li><a href="#tarifas">Tarifas</a></li>
+    <li><a href="#contacto" class="nav-cta">Agendar sesión</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Decorative large neuron -->
+  <div class="hero-deco">
+    <svg width="460" height="300" viewBox="0 0 460 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Glow -->
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#873CA0" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#0E2651" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="neuronGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#297ABF"/>
+          <stop offset="100%" stop-color="#873CA0"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="230" cy="150" rx="200" ry="130" fill="url(#glow)"/>
+      <!-- Main neuron body -->
+      <path d="M 60 160 C 80 140 120 100 180 140 C 220 165 260 100 320 120 C 360 135 400 100 430 120"
+            stroke="url(#neuronGrad)" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <!-- Branches -->
+      <path d="M 180 140 C 170 110 160 80 180 60" stroke="url(#neuronGrad)" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <path d="M 320 120 C 330 90 350 70 370 55" stroke="url(#neuronGrad)" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <path d="M 180 140 C 185 175 175 210 160 235" stroke="url(#neuronGrad)" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.5"/>
+      <!-- Nodes -->
+      <circle cx="60" cy="160" r="18" fill="#0E2651" stroke="url(#neuronGrad)" stroke-width="3"/>
+      <circle cx="60" cy="160" r="10" fill="url(#neuronGrad)" opacity="0.8"/>
+      <circle cx="430" cy="120" r="18" fill="#0E2651" stroke="url(#neuronGrad)" stroke-width="3"/>
+      <circle cx="430" cy="120" r="10" fill="url(#neuronGrad)" opacity="0.8"/>
+      <circle cx="180" cy="140" r="13" fill="url(#neuronGrad)" opacity="0.9"/>
+      <circle cx="320" cy="120" r="13" fill="url(#neuronGrad)" opacity="0.9"/>
+      <!-- Small sparks -->
+      <circle cx="180" cy="60" r="8" fill="#F3CB04" opacity="0.8"/>
+      <circle cx="370" cy="55" r="8" fill="#F3CB04" opacity="0.8"/>
+      <circle cx="160" cy="235" r="8" fill="#F3CB04" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Psicología Cognitiva · Consultas Online
+    </div>
+    <h1>Tu mente,<br><span class="accent">tu fuerza.</span><br>En línea.</h1>
+    <p class="hero-sub">Conectamos neurociencia y bienestar emocional a través de sesiones terapéuticas 100% virtuales. Atención profesional desde donde estés.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-main">Agendar sesión gratis</a>
+      <a href="#servicios" class="btn-yellow">Ver servicios</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="fade-in">
+    <div class="stat-num">+300</div>
+    <div class="stat-label">Pacientes atendidos</div>
+  </div>
+  <div class="fade-in">
+    <div class="stat-num">7 años</div>
+    <div class="stat-label">Experiencia clínica</div>
+  </div>
+  <div class="fade-in">
+    <div class="stat-num">98%</div>
+    <div class="stat-label">Índice de satisfacción</div>
+  </div>
+  <div class="fade-in">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Confidencial</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicios">
+  <div class="services-header">
+    <div>
+      <p class="section-eyebrow fade-in">Especialidades</p>
+      <h2 class="fade-in">Tratamos lo que <span class="accent-purple">más importa</span></h2>
+    </div>
+    <p class="section-desc fade-in">Cada mente es única. Nuestros programas terapéuticos combinan evidencia científica y acompañamiento humano para resultados reales.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-icon-wrap">🌀</div>
+      <h3>Ansiedad & Pánico</h3>
+      <p>Técnicas cognitivo-conductuales para reducir la ansiedad generalizada, ataques de pánico y fobias específicas.</p>
+      <span class="service-tag">TCC · Exposición</span>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon-wrap">🧠</div>
+      <h3>Depresión</h3>
+      <p>Acompañamiento especializado para superar episodios depresivos, activar la motivación y recuperar el disfrute.</p>
+      <span class="service-tag">Activación conductual</span>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon-wrap">💡</div>
+      <h3>Autoestima & Identidad</h3>
+      <p>Fortalece tu autoconcepto, trabaja la autocrítica y construye una identidad más sólida y coherente.</p>
+      <span class="service-tag">Enfoque humanista</span>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon-wrap">🔗</div>
+      <h3>Vínculos & Relaciones</h3>
+      <p>Mejora tus patrones de apego, comunicación y las dinámicas relacionales que te generan sufrimiento.</p>
+      <span class="service-tag">Terapia sistémica</span>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon-wrap">🌿</div>
+      <h3>Estrés & Burnout</h3>
+      <p>Aprende a gestionar la sobrecarga, recupera el equilibrio y construye hábitos de bienestar sostenibles.</p>
+      <span class="service-tag">Mindfulness · ACT</span>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon-wrap">🕊️</div>
+      <h3>Duelo & Pérdidas</h3>
+      <p>Acompañamiento empático y especializado para atravesar procesos de duelo de cualquier naturaleza.</p>
+      <span class="service-tag">Proceso terapéutico</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="how-inner">
+    <p class="section-eyebrow fade-in" style="text-align:center;">Proceso</p>
+    <h2 class="fade-in" style="text-align:center;">4 pasos hacia tu <span class="accent-yellow">bienestar</span></h2>
+    <div class="steps-grid">
+      <div class="step fade-in">
+        <div class="step-circle">1</div>
+        <h3>Elige tu horario</h3>
+        <p>Selecciona el día y la hora que mejor se adapte a tu agenda desde nuestro calendario online.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-circle">2</div>
+        <h3>Sesión inicial gratis</h3>
+        <p>30 minutos para conocernos, definir tus objetivos y diseñar tu plan terapéutico personalizado.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-circle">3</div>
+        <h3>Tu plan a medida</h3>
+        <p>Construimos juntos un proceso terapéutico adaptado a tus necesidades, tiempos y metas.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-circle">4</div>
+        <h3>Avanza y transforma</h3>
+        <p>Sesiones semanales por videollamada con seguimiento continuo entre sesiones.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="sobre-mi" class="section" style="max-width:1280px;">
+  <div class="about-grid">
+    <div class="about-visual fade-in">
+      <div class="about-card-main">
+        <!-- Neuron decorative -->
+        <svg style="position:absolute;top:1.5rem;right:1.5rem;opacity:0.15" width="80" height="50" viewBox="0 0 80 50" fill="none">
+          <path d="M5 28 C15 14 30 8 45 22 C55 32 65 15 75 20" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <circle cx="5" cy="28" r="5" fill="white"/>
+          <circle cx="75" cy="20" r="5" fill="white"/>
+        </svg>
+        <p class="about-quote">"La sinapsis no es solo una conexión neuronal, es la metáfora perfecta de lo que sucede en terapia: dos mentes que se conectan para generar cambio."</p>
+        <div class="about-name">Adriana González</div>
+        <div class="about-role">Psicóloga Cognitiva · Fundadora Sinapsys</div>
+      </div>
+    </div>
+    <div class="about-text fade-in">
+      <p class="section-eyebrow">Sobre nosotros</p>
+      <h2>Ciencia y <span class="accent-purple">humanidad</span><br>en cada sesión</h2>
+      <p>En Sinapsys creemos que la salud mental es tan importante como la salud física. Somos un equipo de psicólogos clínicos especializados, unidos por la convicción de que el cambio real es posible para cualquier persona.</p>
+      <p>Nuestra metodología combina las terapias de mayor evidencia científica — TCC, ACT, Terapia de Esquemas — con un acompañamiento cálido, directo y orientado a resultados concretos.</p>
+      <div class="credentials">
+        <div class="cred-item"><span class="cred-dot"></span>Licenciatura en Psicología — Universidad Nacional</div>
+        <div class="cred-item"><span class="cred-dot"></span>Máster en Terapia Cognitivo-Conductual</div>
+        <div class="cred-item"><span class="cred-dot"></span>Formación en ACT y Mindfulness Basado en Evidencia</div>
+        <div class="cred-item"><span class="cred-dot"></span>Miembro de la Asociación Latinoamericana de Psicología</div>
+        <div class="cred-item"><span class="cred-dot"></span>Especialización en Neurociencia Aplicada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<div class="testimonials-bg">
+  <div class="testimonials-inner">
+    <p class="section-eyebrow fade-in" style="text-align:center;">Testimonios</p>
+    <h2 class="fade-in" style="text-align:center;">Historias de <span class="accent-yellow">transformación</span></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <div class="stars">★★★★★</div>
+        <p>"Sinapsys cambió mi relación con la ansiedad. Hoy tengo herramientas reales y una vida que disfruto. La modalidad online hizo todo más accesible y cómodo."</p>
+        <div class="t-author">
+          <div class="t-avatar">VR</div>
+          <div>
+            <div class="t-name">Valentina R.</div>
+            <div class="t-sub">Diseñadora · 29 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <div class="stars">★★★★★</div>
+        <p>"Encontré en Sinapsys exactamente lo que necesitaba: una psicóloga que escucha de verdad y me da recursos concretos. Los resultados llegaron mucho antes de lo esperado."</p>
+        <div class="t-author">
+          <div class="t-avatar">MT</div>
+          <div>
+            <div class="t-name">Marcos T.</div>
+            <div class="t-sub">Emprendedor · 35 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <div class="stars">★★★★★</div>
+        <p>"Nunca pensé que podría hablar tan fácilmente de mis problemas. El entorno online me dio la seguridad que necesitaba. Literalmente transformó mi vida."</p>
+        <div class="t-author">
+          <div class="t-avatar">LM</div>
+          <div>
+            <div class="t-name">Luciana M.</div>
+            <div class="t-sub">Docente · 41 años</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section id="tarifas" class="section" style="max-width:1280px;">
+  <p class="section-eyebrow fade-in" style="text-align:center;">Inversión</p>
+  <h2 class="fade-in" style="text-align:center;">Planes que se adaptan<br><span class="accent-purple">a tu vida</span></h2>
+  <div class="pricing-grid">
+    <div class="pricing-card fade-in">
+      <div class="pricing-name">Sesión única</div>
+      <div class="pricing-amount">$60</div>
+      <div class="pricing-period">sesión de 50 minutos</div>
+      <ul class="pricing-features">
+        <li>Videollamada segura</li>
+        <li>Resumen post-sesión</li>
+        <li>Sin compromiso</li>
+        <li>Reprogramación 24hs antes</li>
+      </ul>
+      <a href="#contacto" class="btn-pricing-ghost">Reservar</a>
+    </div>
+    <div class="pricing-card featured fade-in">
+      <div class="pricing-badge">Más popular</div>
+      <div class="pricing-name">Plan mensual</div>
+      <div class="pricing-amount">$200</div>
+      <div class="pricing-period">4 sesiones · ahorras $40</div>
+      <ul class="pricing-features">
+        <li>4 sesiones de 50 min</li>
+        <li>Soporte entre sesiones</li>
+        <li>Recursos y ejercicios</li>
+        <li>Seguimiento continuo</li>
+        <li>Primera sesión gratis</li>
+      </ul>
+      <a href="#contacto" class="btn-pricing-yellow">Comenzar ahora</a>
+    </div>
+    <div class="pricing-card fade-in">
+      <div class="pricing-name">Consulta inicial</div>
+      <div class="pricing-amount">Gratis</div>
+      <div class="pricing-period">30 minutos sin costo</div>
+      <ul class="pricing-features">
+        <li>Evaluación de objetivos</li>
+        <li>Propuesta terapéutica</li>
+        <li>Sin compromiso</li>
+        <li>Respuesta en 24 horas</li>
+      </ul>
+      <a href="#contacto" class="btn-pricing-ghost">Agendar ya</a>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:2rem; font-size:0.82rem; color:rgba(255,255,255,0.35);">
+    Acepto tarjeta de crédito, débito y transferencia. Factura disponible.
+  </p>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="max-width:1280px; text-align:center;">
+  <p class="section-eyebrow fade-in">FAQ</p>
+  <h2 class="fade-in">Preguntas <span class="accent-yellow">frecuentes</span></h2>
+  <div class="faq-list">
+    <div class="faq-item fade-in">
+      <div class="faq-q">¿Cómo funciona la terapia online de Sinapsys? <div class="faq-icon">+</div></div>
+      <div class="faq-a">Las sesiones se realizan por videollamada segura (Zoom o Google Meet). Solo necesitas un dispositivo con cámara y conexión a internet. La plataforma garantiza total privacidad y confidencialidad.</div>
+    </div>
+    <div class="faq-item fade-in">
+      <div class="faq-q">¿La terapia online tiene la misma efectividad? <div class="faq-icon">+</div></div>
+      <div class="faq-a">Sí. Múltiples investigaciones científicas demuestran que la terapia online es igual de efectiva que la presencial. Además, ofrece mayor comodidad, flexibilidad horaria y privacidad desde tu propio entorno.</div>
+    </div>
+    <div class="faq-item fade-in">
+      <div class="faq-q">¿Están seguros mis datos y lo que comparto? <div class="faq-icon">+</div></div>
+      <div class="faq-a">Absolutamente. Todo lo compartido en sesión está protegido por el secreto profesional. Utilizamos plataformas encriptadas y nunca compartimos información sin tu consentimiento explícito.</div>
+    </div>
+    <div class="faq-item fade-in">
+      <div class="faq-q">¿Cuántas sesiones necesito para ver resultados? <div class="faq-icon">+</div></div>
+      <div class="faq-a">Depende de cada persona y sus objetivos. Muchos pacientes notan cambios significativos entre las sesiones 4 y 8. En la consulta inicial definimos juntos un plan y estimación realista.</div>
+    </div>
+    <div class="faq-item fade-in">
+      <div class="faq-q">¿Puedo cancelar o cambiar mi cita? <div class="faq-icon">+</div></div>
+      <div class="faq-a">Sí. Puedes cancelar o reprogramar con al menos 24 horas de anticipación sin ningún costo adicional. Entendemos que la vida tiene imprevistos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-section" id="contacto">
+  <!-- Big neuron background -->
+  <svg style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0.06;pointer-events:none" width="800" height="400" viewBox="0 0 800 400" fill="none">
+    <path d="M 50 230 C 100 170 200 100 320 200 C 400 260 500 130 620 170 C 700 200 750 150 780 180"
+          stroke="white" stroke-width="20" stroke-linecap="round" fill="none"/>
+    <circle cx="50" cy="230" r="35" fill="white"/>
+    <circle cx="780" cy="180" r="35" fill="white"/>
+    <circle cx="320" cy="200" r="22" fill="white"/>
+    <circle cx="620" cy="170" r="22" fill="white"/>
+  </svg>
+  <p class="section-eyebrow" style="color:var(--yellow);">¿Lista para empezar?</p>
+  <h2>Tu primera sesión<br>en Sinapsys <span class="accent-yellow">es gratis</span></h2>
+  <p>No necesitas estar en crisis para merecer apoyo. Solo necesitas querer algo diferente. Da el primer paso hoy.</p>
+  <div class="cta-buttons">
+    <a href="https://wa.me/5491100000000" class="btn-cta-yellow">💬 WhatsApp</a>
+    <a href="mailto:hola@sinapsys.com" class="btn-cta-white">📧 Escribirnos</a>
+    <a href="https://calendly.com" target="_blank" class="btn-cta-white">📅 Agenda online</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-logo-wrap">
+      <svg width="28" height="18" viewBox="0 0 60 38" fill="none">
+        <path d="M8 20 C8 20 16 8 28 18 C36 25 44 10 52 14" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <circle cx="8" cy="20" r="5" fill="white"/>
+        <circle cx="52" cy="14" r="5" fill="white"/>
+        <circle cx="28" cy="18" r="3.5" fill="rgba(255,255,255,0.6)"/>
+      </svg>
+      <span class="footer-logo-text">SINAPSYS</span>
+    </div>
+    <p class="footer-desc">Psicología cognitiva online. Conectamos neurociencia y bienestar emocional para transformar vidas desde cualquier lugar.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Navegación</h4>
+    <ul>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#sobre-mi">Sobre nosotros</a></li>
+      <li><a href="#tarifas">Tarifas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Contacto</h4>
+    <ul>
+      <li><a href="mailto:hola@sinapsys.com">hola@sinapsys.com</a></li>
+      <li><a href="#">+57 320 3470001</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 Sinapsys. Todos los derechos reservados.</span>
+  <span>Bogotá D.C., Colombia · Atención online en toda Latinoamérica</span>
+</div>
+
+<script>
+  // Scroll animations
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // FAQ
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
