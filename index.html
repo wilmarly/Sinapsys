@@ -342,7 +342,7 @@
     padding: 2.25rem 2rem;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s, border-color 0.3s;
+    transition: border-color 0.35s, box-shadow 0.35s;
   }
 
   .service-card::before {
@@ -351,15 +351,15 @@
     inset: 0;
     background: var(--grad-main);
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.35s;
   }
 
   .service-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--purple);
+    border-color: var(--purple-light);
+    box-shadow: 0 0 0 1px rgba(168,85,200,0.18), 0 10px 36px rgba(135,60,160,0.18);
   }
 
-  .service-card:hover::before { opacity: 0.08; }
+  .service-card:hover::before { opacity: 0.1; }
 
   .service-card > * { position: relative; z-index: 1; }
 
@@ -371,8 +371,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
     margin-bottom: 1.25rem;
+    color: var(--purple-light);
+    transition: background 0.35s, border-color 0.35s, transform 0.35s;
+  }
+
+  .service-icon-wrap svg {
+    width: 1.25rem; height: 1.25rem;
+    stroke: currentColor;
+    flex-shrink: 0;
+  }
+
+  .service-card:hover .service-icon-wrap {
+    background: rgba(135,60,160,0.35);
+    border-color: rgba(168,85,200,0.55);
+    transform: scale(1.12);
   }
 
   .service-card h3 {
@@ -385,7 +398,7 @@
 
   .service-card p {
     font-size: 0.88rem;
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.72);
     line-height: 1.7;
   }
 
@@ -400,6 +413,12 @@
     border-radius: 1rem;
     padding: 0.2rem 0.7rem;
     font-weight: 700;
+    transition: transform 0.35s, border-color 0.35s;
+  }
+
+  .service-card:hover .service-tag {
+    transform: translateY(-2px);
+    border-color: rgba(243,203,4,0.55);
   }
 
   /* ─── HOW IT WORKS ─── */
@@ -462,6 +481,10 @@
   }
 
   /* ─── ABOUT ─── */
+  .about-visual {
+    perspective: 900px;
+  }
+
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -479,6 +502,8 @@
     padding: 3rem;
     position: relative;
     overflow: hidden;
+    transition: transform 0.4s ease;
+    will-change: transform;
   }
 
   .about-card-main::before {
@@ -545,9 +570,9 @@
 
   /* ─── TESTIMONIALS ─── */
   .testimonials-bg {
-    background: rgba(38,61,11,0.2);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(87,39,130,0.1);
+    border-top: 1px solid rgba(135,60,160,0.12);
+    border-bottom: 1px solid rgba(135,60,160,0.12);
     padding: 7rem 5rem;
   }
 
@@ -555,22 +580,27 @@
 
   .testimonials-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1.5rem;
     margin-top: 3.5rem;
   }
 
   .testimonial-card {
+    grid-column: span 2;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 1.25rem;
     padding: 2rem;
-    transition: border-color 0.3s, transform 0.3s;
+    transition: border-color 0.35s, box-shadow 0.35s;
   }
 
+  /* Center the last 2 cards when there are 5 total */
+  .testimonial-card:nth-child(4) { grid-column: 2 / span 2; }
+  .testimonial-card:nth-child(5) { grid-column: 4 / span 2; }
+
   .testimonial-card:hover {
-    border-color: var(--green);
-    transform: translateY(-3px);
+    border-color: var(--purple-light);
+    box-shadow: 0 0 0 1px rgba(168,85,200,0.15), 0 8px 28px rgba(135,60,160,0.14);
   }
 
   .stars { color: var(--yellow); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
@@ -588,17 +618,23 @@
   .t-avatar {
     width: 2.5rem; height: 2.5rem;
     border-radius: 50%;
-    background: var(--grad-green);
+    background: var(--grad-blue-purple);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 900;
     font-size: 0.85rem;
     flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: border-color 0.35s;
+  }
+
+  .testimonial-card:hover .t-avatar {
+    border-color: rgba(168,85,200,0.5);
   }
 
   .t-name { font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.06em; }
-  .t-sub { font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+  .t-sub { font-size: 0.75rem; color: rgba(255,255,255,0.62); }
 
   /* ─── PRICING ─── */
   .pricing-grid {
@@ -934,6 +970,50 @@
     transform: translateY(0);
   }
 
+  /* Snap-in cards: slide from left and snap into place */
+  .snap-card.fade-in {
+    transform: translateX(-18px);
+  }
+
+  .snap-card.fade-in.visible {
+    transform: translateX(0);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Stagger delays — services grid */
+  .services-grid .snap-card:nth-child(1) { transition-delay: 0ms; }
+  .services-grid .snap-card:nth-child(2) { transition-delay: 75ms; }
+  .services-grid .snap-card:nth-child(3) { transition-delay: 150ms; }
+  .services-grid .snap-card:nth-child(4) { transition-delay: 75ms; }
+  .services-grid .snap-card:nth-child(5) { transition-delay: 150ms; }
+  .services-grid .snap-card:nth-child(6) { transition-delay: 225ms; }
+
+  /* Stagger delays — testimonials grid */
+  .testimonials-grid .snap-card:nth-child(1) { transition-delay: 0ms; }
+  .testimonials-grid .snap-card:nth-child(2) { transition-delay: 85ms; }
+  .testimonials-grid .snap-card:nth-child(3) { transition-delay: 170ms; }
+  .testimonials-grid .snap-card:nth-child(4) { transition-delay: 85ms; }
+  .testimonials-grid .snap-card:nth-child(5) { transition-delay: 170ms; }
+
+  /* Accessibility: respect user motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .snap-card.fade-in,
+    .fade-in {
+      transform: none !important;
+      transition: opacity 0.4s ease !important;
+    }
+    .service-card,
+    .testimonial-card,
+    .service-icon-wrap,
+    .service-tag,
+    .t-avatar,
+    .about-card-main {
+      transition: border-color 0.2s, box-shadow 0.2s !important;
+      transform: none !important;
+    }
+  }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 960px) {
     nav { padding: 1.25rem 2rem; }
@@ -943,7 +1023,11 @@
     .stats-strip { grid-template-columns: 1fr 1fr; padding: 2rem; }
     .section, #servicios { padding: 4.5rem 2rem; }
     .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
-    .services-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .services-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .testimonial-card,
+    .testimonial-card:nth-child(4),
+    .testimonial-card:nth-child(5) { grid-column: 1 / -1; }
     .steps-grid { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 3rem; }
     .how-section, .testimonials-bg { padding: 4.5rem 2rem; }
@@ -1056,38 +1140,73 @@
     <p class="section-desc fade-in">Cada mente es única. Nuestros programas terapéuticos combinan evidencia científica y acompañamiento humano para resultados reales.</p>
   </div>
   <div class="services-grid">
-    <div class="service-card fade-in">
-      <div class="service-icon-wrap">🌀</div>
+    <div class="service-card fade-in snap-card">
+      <div class="service-icon-wrap" aria-hidden="true">
+        <!-- Pulse / EKG wave -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="2,12 6,12 8,5 11,19 14,8 16,14 18,12 22,12"/>
+        </svg>
+      </div>
       <h3>Ansiedad & Pánico</h3>
       <p>Técnicas cognitivo-conductuales para reducir la ansiedad generalizada, ataques de pánico y fobias específicas.</p>
       <span class="service-tag">TCC · Exposición</span>
     </div>
-    <div class="service-card fade-in">
-      <div class="service-icon-wrap">🧠</div>
+    <div class="service-card fade-in snap-card">
+      <div class="service-icon-wrap" aria-hidden="true">
+        <!-- Crescent moon (inner darkness / rest) -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </div>
       <h3>Depresión</h3>
       <p>Acompañamiento especializado para superar episodios depresivos, activar la motivación y recuperar el disfrute.</p>
       <span class="service-tag">Activación conductual</span>
     </div>
-    <div class="service-card fade-in">
-      <div class="service-icon-wrap">💡</div>
+    <div class="service-card fade-in snap-card">
+      <div class="service-icon-wrap" aria-hidden="true">
+        <!-- Shield (self-protection / identity) -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
       <h3>Autoestima & Identidad</h3>
       <p>Fortalece tu autoconcepto, trabaja la autocrítica y construye una identidad más sólida y coherente.</p>
       <span class="service-tag">Enfoque humanista</span>
     </div>
-    <div class="service-card fade-in">
-      <div class="service-icon-wrap">🔗</div>
+    <div class="service-card fade-in snap-card">
+      <div class="service-icon-wrap" aria-hidden="true">
+        <!-- Two connected people / users -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
       <h3>Vínculos & Relaciones</h3>
       <p>Mejora tus patrones de apego, comunicación y las dinámicas relacionales que te generan sufrimiento.</p>
       <span class="service-tag">Terapia sistémica</span>
     </div>
-    <div class="service-card fade-in">
-      <div class="service-icon-wrap">🌿</div>
+    <div class="service-card fade-in snap-card">
+      <div class="service-icon-wrap" aria-hidden="true">
+        <!-- Zap / lightning (energy overload) -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+      </div>
       <h3>Estrés & Burnout</h3>
       <p>Aprende a gestionar la sobrecarga, recupera el equilibrio y construye hábitos de bienestar sostenibles.</p>
       <span class="service-tag">Mindfulness · ACT</span>
     </div>
-    <div class="service-card fade-in">
-      <div class="service-icon-wrap">🕊️</div>
+    <div class="service-card fade-in snap-card">
+      <div class="service-icon-wrap" aria-hidden="true">
+        <!-- Feather (gentleness / grief) -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
+          <line x1="16" y1="8" x2="2" y2="22"/>
+          <line x1="17.5" y1="15" x2="9" y2="15"/>
+        </svg>
+      </div>
       <h3>Duelo & Pérdidas</h3>
       <p>Acompañamiento empático y especializado para atravesar procesos de duelo de cualquier naturaleza.</p>
       <span class="service-tag">Proceso terapéutico</span>
@@ -1163,7 +1282,7 @@
     <p class="section-eyebrow fade-in" style="text-align:center;">Testimonios</p>
     <h2 class="fade-in" style="text-align:center;">Historias de <span class="accent-yellow">transformación</span></h2>
     <div class="testimonials-grid">
-      <div class="testimonial-card fade-in">
+      <div class="testimonial-card fade-in snap-card">
         <div class="stars">★★★★★</div>
         <p>"Sinapsys cambió mi relación con la ansiedad. Hoy tengo herramientas reales y una vida que disfruto. La modalidad online hizo todo más accesible y cómodo."</p>
         <div class="t-author">
@@ -1174,7 +1293,7 @@
           </div>
         </div>
       </div>
-      <div class="testimonial-card fade-in">
+      <div class="testimonial-card fade-in snap-card">
         <div class="stars">★★★★★</div>
         <p>"Encontré en Sinapsys exactamente lo que necesitaba: una psicóloga que escucha de verdad y me da recursos concretos. Los resultados llegaron mucho antes de lo esperado."</p>
         <div class="t-author">
@@ -1185,7 +1304,7 @@
           </div>
         </div>
       </div>
-      <div class="testimonial-card fade-in">
+      <div class="testimonial-card fade-in snap-card">
         <div class="stars">★★★★★</div>
         <p>"Nunca pensé que podría hablar tan fácilmente de mis problemas. El entorno online me dio la seguridad que necesitaba. Literalmente transformó mi vida."</p>
         <div class="t-author">
@@ -1193,6 +1312,28 @@
           <div>
             <div class="t-name">Luciana M.</div>
             <div class="t-sub">Docente · 41 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in snap-card">
+        <div class="stars">★★★★★</div>
+        <p>"El proceso con Sinapsys fue transformador. Aprendí a reconocer mis límites, a decir que no sin culpa y a recuperar energía que creía perdida para siempre."</p>
+        <div class="t-author">
+          <div class="t-avatar">SP</div>
+          <div>
+            <div class="t-name">Sofía P.</div>
+            <div class="t-sub">Abogada · 33 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in snap-card">
+        <div class="stars">★★★★★</div>
+        <p>"Como estudiante universitario dudé mucho en pedir ayuda. Sinapsys me demostró que la terapia online es práctica, sin juicios y realmente efectiva. Ojalá lo hubiera hecho antes."</p>
+        <div class="t-author">
+          <div class="t-avatar">CM</div>
+          <div>
+            <div class="t-name">Carlos M.</div>
+            <div class="t-sub">Estudiante · 24 años</div>
           </div>
         </div>
       </div>
@@ -1348,6 +1489,25 @@
   }, { threshold: 0.12 });
 
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // 3D tilt — about card
+  const tiltCard = document.querySelector('.about-card-main');
+  if (tiltCard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    tiltCard.addEventListener('mousemove', e => {
+      const r = tiltCard.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      tiltCard.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 8}deg)`;
+    });
+    tiltCard.addEventListener('mouseleave', () => {
+      tiltCard.style.transition = 'transform 0.5s ease';
+      tiltCard.style.transform = '';
+      setTimeout(() => { tiltCard.style.transition = ''; }, 500);
+    });
+    tiltCard.addEventListener('mouseenter', () => {
+      tiltCard.style.transition = 'transform 0.1s ease-out';
+    });
+  }
 
   // FAQ
   document.querySelectorAll('.faq-item').forEach(item => {
