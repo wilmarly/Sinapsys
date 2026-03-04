@@ -1,0 +1,127 @@
+/*
+ * ─────────────────────────────────────────────────────────────────
+ *  SINAPSYS — DESIGN TOKENS
+ *  Fuente: Manual de marca Sinapsys (Alquimia GPV)
+ *
+ *  Paleta: 7 colores oficiales + 3 degradés + neutros
+ *  Tipografía: Lato (Light 300, Regular 400, Bold 700, Black 900)
+ * ─────────────────────────────────────────────────────────────────
+ */
+
+:root {
+
+  /* ─── PALETA DE COLOR — MANUAL DE MARCA ─── */
+
+  /* Primarios — paleta activa (azul, violeta, blanco) */
+  --color-navy:         #0E2651;   /* HEX oficial — RGB 14, 38, 81   */
+  --color-navy-mid:     #1a3a70;   /* Intermedio para fondos          */
+  --color-blue:         #297ABF;   /* HEX oficial — RGB 41, 122, 191 */
+  --color-blue-light:   #5ca8df;   /* Variante clara para acentos     */
+  --color-purple:       #873CA0;   /* HEX oficial — RGB 135, 60, 160 */
+  --color-purple-light: #a855c8;   /* Variante clara para hover/glow  */
+
+  /* Secundarios — desactivados en esta versión de paleta */
+  --color-green-dark:   #263D0B;   /* HEX oficial — no usado          */
+  --color-green:        #577019;   /* HEX oficial — no usado          */
+  --color-yellow:       #F3CB04;   /* HEX oficial — no usado          */
+
+  /* Neutros — todos del manual */
+  --color-black:        #000000;
+  --color-dark-1:       #212121;   /* RGB 33, 33, 33  */
+  --color-dark-2:       #303030;   /* RGB 48, 48, 48  */
+  --color-mid:          #5B5B5B;   /* RGB 91, 91, 91  */
+  --color-white:        #ffffff;
+  --color-light:        #f5f5f5;
+
+  /* Canvas (fondo global del sitio — navy medio, más legible que #0a0f1e) */
+  --color-bg:           #0d1c38;
+
+  /* ─── DEGRADÉS OFICIALES (3 degradés de la marca — versión luminosa) ─── */
+  /* navy-mid → purple-light: más claro y vibrante que navy → purple */
+  --grad-main:          linear-gradient(135deg, var(--color-navy-mid) 0%, var(--color-purple-light) 100%);
+  --grad-green:         linear-gradient(135deg, var(--color-green-dark) 0%, var(--color-green) 100%);
+  /* blue-light → purple-light: más luminoso y claro */
+  --grad-blue-purple:   linear-gradient(135deg, var(--color-blue-light) 0%, var(--color-purple-light) 100%);
+
+  /* ─── TIPOGRAFÍA — MANUAL DE MARCA ─── */
+
+  /* Familia — única familia permitida */
+  --font-family:  'Lato', sans-serif;
+
+  /* Pesos — según manual:
+     Títulos/mensajes cortos → Bold (700) y Black (900)
+     Énfasis en títulos      → Bold Italic / Black Italic
+     Párrafos/cuerpo         → Light (300) y Regular (400)
+     Énfasis en cuerpo       → Italic                          */
+  --font-light:   300;
+  --font-regular: 400;
+  --font-bold:    700;
+  --font-black:   900;
+
+  /* Escala tipográfica (basada en implementación + restricciones del manual) */
+  --text-2xs:  0.68rem;   /*  ~11px — badges, labels tiny        */
+  --text-xs:   0.72rem;   /*  ~12px — eyebrows, tags             */
+  --text-sm:   0.78rem;   /*  ~13px — legal, footer small        */
+  --text-base: 0.88rem;   /*  ~14px — body secondary, features   */
+  --text-md:   0.95rem;   /*  ~15px — body primary, FAQ          */
+  --text-lg:   1rem;      /*  ~16px — lead text                  */
+  --text-xl:   1.1rem;    /*  ~18px — hero sub, large body       */
+  --text-2xl:  1.35rem;   /*  ~22px — quote, featured text       */
+  --text-h3:   1.05rem;   /*  card headings (uppercase Bold)     */
+  --text-h2:   clamp(1.8rem, 3vw, 2.8rem);
+  --text-h1:   clamp(2.8rem, 5.5vw, 5.2rem);
+  --text-stat: 2.8rem;    /*  estadísticas hero strip            */
+  --text-price: 3.5rem;   /*  precio en pricing cards            */
+
+  /* ─── ESPACIADO — ESCALA BASE 4PX ─── */
+  --space-1:   0.25rem;   /*  4px  */
+  --space-2:   0.5rem;    /*  8px  */
+  --space-3:   0.75rem;   /* 12px  */
+  --space-4:   1rem;      /* 16px  */
+  --space-5:   1.25rem;   /* 20px  */
+  --space-6:   1.5rem;    /* 24px  */
+  --space-8:   2rem;      /* 32px  */
+  --space-10:  2.5rem;    /* 40px  */
+  --space-12:  3rem;      /* 48px  */
+  --space-14:  3.5rem;    /* 56px  */
+  --space-16:  4rem;      /* 64px  */
+  --space-20:  5rem;      /* 80px  */
+  --space-24:  6rem;      /* 96px  */
+  --space-28:  7rem;      /* 112px */
+  --space-32:  8rem;      /* 128px */
+
+  /* ─── LAYOUT ─── */
+  --container-max:    1280px;
+  --section-pad-x:    var(--space-20);   /* 80px desktop */
+  --section-pad-y:    var(--space-28);   /* 112px desktop */
+  --section-pad-x-sm: var(--space-8);   /* 32px mobile  */
+  --section-pad-y-sm: var(--space-16);  /* 64px mobile  */
+
+  /* ─── BORDER RADIUS ─── */
+  --radius-sm:   0.75rem;   /* icon wrappers, tags     */
+  --radius-md:   1.25rem;   /* service/testimonial cards */
+  --radius-lg:   1.5rem;    /* pricing cards           */
+  --radius-xl:   2rem;      /* about card, large cards */
+  --radius-full: 3rem;      /* pills, buttons          */
+  --radius-circle: 50%;
+
+  /* ─── SOMBRAS ─── */
+  --shadow-purple-sm: 0 8px 28px rgba(135, 60, 160, 0.14);
+  --shadow-purple-md: 0 10px 36px rgba(135, 60, 160, 0.18);
+  --shadow-purple-lg: 0 20px 60px rgba(135, 60, 160, 0.40);
+  --shadow-blue:      0 8px 30px rgba( 41, 122, 191, 0.35);
+  --shadow-glow-sm:   0 0 0 1px rgba(168, 85,  200, 0.18);
+  --shadow-glow-md:   0 0 0 1px rgba(168, 85,  200, 0.15);
+
+  /* ─── TRANSICIONES ─── */
+  --transition-fast:   0.2s ease;
+  --transition-base:   0.35s ease;
+  --transition-slow:   0.5s ease;
+  --ease-spring:       cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ─── SUPERFICIES (glass / frosted) ─── */
+  --surface-glass:       rgba(255, 255, 255, 0.04);
+  --surface-glass-hover: rgba(255, 255, 255, 0.07);
+  --border-subtle:       rgba(255, 255, 255, 0.08);
+  --border-focus:        rgba(168, 85, 200, 0.55);
+}

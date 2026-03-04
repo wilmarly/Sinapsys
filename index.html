@@ -40,34 +40,25 @@
 
 <!-- HERO -->
 <section class="hero">
-  <!-- Neurona decorativa — elemento visual derecho -->
+  <!-- Ícono de marca — neurona ampliada, mismo símbolo que el logo -->
   <div class="hero-deco" aria-hidden="true">
-    <svg width="460" height="300" viewBox="0 0 460 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="hero-icon" width="360" height="228" viewBox="0 0 60 38" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stop-color="#873CA0" stop-opacity="0.4"/>
-          <stop offset="100%" stop-color="#0E2651" stop-opacity="0"/>
-        </radialGradient>
-        <linearGradient id="neuronGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stop-color="#297ABF"/>
-          <stop offset="100%" stop-color="#873CA0"/>
+        <linearGradient id="heroIconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#5ca8df"/>
+          <stop offset="100%" stop-color="#a855c8"/>
         </linearGradient>
+        <filter id="heroGlow">
+          <feGaussianBlur stdDeviation="0.8" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
       </defs>
-      <ellipse cx="230" cy="150" rx="200" ry="130" fill="url(#glow)"/>
-      <path d="M 60 160 C 80 140 120 100 180 140 C 220 165 260 100 320 120 C 360 135 400 100 430 120"
-            stroke="url(#neuronGrad)" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.9"/>
-      <path d="M 180 140 C 170 110 160 80 180 60"   stroke="url(#neuronGrad)" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7"/>
-      <path d="M 320 120 C 330 90 350 70 370 55"    stroke="url(#neuronGrad)" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7"/>
-      <path d="M 180 140 C 185 175 175 210 160 235" stroke="url(#neuronGrad)" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.5"/>
-      <circle cx="60"  cy="160" r="18" fill="#0E2651" stroke="url(#neuronGrad)" stroke-width="3"/>
-      <circle cx="60"  cy="160" r="10" fill="url(#neuronGrad)" opacity="0.8"/>
-      <circle cx="430" cy="120" r="18" fill="#0E2651" stroke="url(#neuronGrad)" stroke-width="3"/>
-      <circle cx="430" cy="120" r="10" fill="url(#neuronGrad)" opacity="0.8"/>
-      <circle cx="180" cy="140" r="13" fill="url(#neuronGrad)" opacity="0.9"/>
-      <circle cx="320" cy="120" r="13" fill="url(#neuronGrad)" opacity="0.9"/>
-      <circle cx="180" cy="60"  r="8"  fill="#F3CB04" opacity="0.8"/>
-      <circle cx="370" cy="55"  r="8"  fill="#F3CB04" opacity="0.8"/>
-      <circle cx="160" cy="235" r="8"  fill="#F3CB04" opacity="0.6"/>
+      <path d="M8 20 C8 20 16 8 28 18 C36 25 44 10 52 14"
+            stroke="url(#heroIconGrad)" stroke-width="2.5" stroke-linecap="round" fill="none"
+            filter="url(#heroGlow)"/>
+      <circle cx="8"  cy="20" r="4.5" fill="url(#heroIconGrad)" opacity="0.95" filter="url(#heroGlow)"/>
+      <circle cx="52" cy="14" r="4.5" fill="url(#heroIconGrad)" opacity="0.95" filter="url(#heroGlow)"/>
+      <circle cx="28" cy="18" r="3"   fill="white"              opacity="0.85"/>
     </svg>
   </div>
 
@@ -86,21 +77,21 @@
 </section>
 
 <!-- STATS -->
-<div class="stats-strip" aria-label="Estadísticas">
+<div class="stats-strip" id="estadisticas" aria-label="Estadísticas">
   <div class="fade-in">
-    <div class="stat-num">+300</div>
+    <div class="stat-num">+<span class="counter" data-target="300">0</span></div>
     <div class="stat-label">Pacientes atendidos</div>
   </div>
   <div class="fade-in">
-    <div class="stat-num">7 años</div>
+    <div class="stat-num"><span class="counter" data-target="7">0</span> años</div>
     <div class="stat-label">Experiencia clínica</div>
   </div>
   <div class="fade-in">
-    <div class="stat-num">98%</div>
+    <div class="stat-num"><span class="counter" data-target="98">0</span>%</div>
     <div class="stat-label">Índice de satisfacción</div>
   </div>
   <div class="fade-in">
-    <div class="stat-num">100%</div>
+    <div class="stat-num"><span class="counter" data-target="100">0</span>%</div>
     <div class="stat-label">Confidencial</div>
   </div>
 </div>
@@ -240,10 +231,10 @@
         </svg>
         <blockquote>
           <p class="about-quote">"La sinapsis no es solo una conexión neuronal, es la metáfora perfecta de lo que sucede en terapia: dos mentes que se conectan para generar cambio."</p>
-          <footer>
+          <cite>
             <div class="about-name">Adriana González</div>
             <div class="about-role">Psicóloga Cognitiva · Fundadora Sinapsys</div>
-          </footer>
+          </cite>
         </blockquote>
       </div>
     </div>
@@ -339,7 +330,7 @@
   <p class="section-eyebrow fade-in" style="text-align:center;">Inversión</p>
   <h2 id="tarifas-titulo" class="fade-in" style="text-align:center;">Planes que se adaptan<br><span class="accent-purple">a tu vida</span></h2>
   <div class="pricing-grid">
-    <div class="pricing-card fade-in">
+    <div class="pricing-card fade-in snap-card">
       <div class="pricing-name">Sesión única</div>
       <div class="pricing-amount">$60</div>
       <div class="pricing-period">sesión de 50 minutos</div>
@@ -351,7 +342,7 @@
       </ul>
       <a href="#contacto" class="btn-pricing-ghost">Reservar</a>
     </div>
-    <div class="pricing-card featured fade-in">
+    <div class="pricing-card featured fade-in snap-card">
       <div class="pricing-badge">Más popular</div>
       <div class="pricing-name">Plan mensual</div>
       <div class="pricing-amount">$200</div>
@@ -365,7 +356,7 @@
       </ul>
       <a href="#contacto" class="btn-pricing-yellow">Comenzar ahora</a>
     </div>
-    <div class="pricing-card fade-in">
+    <div class="pricing-card fade-in snap-card">
       <div class="pricing-name">Consulta inicial</div>
       <div class="pricing-amount">Gratis</div>
       <div class="pricing-period">30 minutos sin costo</div>
@@ -438,7 +429,7 @@
     <circle cx="320" cy="200" r="22" fill="white"/>
     <circle cx="620" cy="170" r="22" fill="white"/>
   </svg>
-  <p class="section-eyebrow" style="color:var(--color-yellow);">¿Lista para empezar?</p>
+  <p class="section-eyebrow">¿Lista para empezar?</p>
   <h2>Tu primera sesión<br>en Sinapsys <span class="accent-yellow">es gratis</span></h2>
   <p>No necesitas estar en crisis para merecer apoyo. Solo necesitas querer algo diferente. Da el primer paso hoy.</p>
   <div class="cta-buttons">
@@ -463,7 +454,7 @@
     <p class="footer-desc">Psicología cognitiva online. Conectamos neurociencia y bienestar emocional para transformar vidas desde cualquier lugar.</p>
   </div>
   <nav class="footer-col" aria-label="Navegación footer">
-    <h4>Navegación</h4>
+    <h4>Sinapsys</h4>
     <ul>
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#sobre-mi">Sobre nosotros</a></li>

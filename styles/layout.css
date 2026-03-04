@@ -1,0 +1,304 @@
+/*
+ * ─────────────────────────────────────────────────────────────────
+ *  SINAPSYS — LAYOUT
+ *  Hero, Stats Strip, Services, How, About, Testimonials,
+ *  Pricing, FAQ, CTA Final, Footer.
+ * ─────────────────────────────────────────────────────────────────
+ */
+
+/* ═══════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════ */
+
+/*
+ * Fondo animado de malla de degradés — 4 paradas que se desplazan
+ * en loop a través de background-size: 400% 400%.
+ * Paleta oficial: navy · purple-light · blue · navy.
+ */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 9rem var(--section-pad-x) var(--space-20);
+  overflow: hidden;
+  background: linear-gradient(
+    -45deg,
+    var(--color-navy),
+    var(--color-purple-light),
+    var(--color-blue),
+    var(--color-navy)
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 660px;
+}
+
+.hero-deco {
+  position: absolute;
+  right: var(--space-16);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Ícono de marca en el hero — tamaño y glow */
+.hero-icon {
+  width: 360px;
+  height: auto;
+  filter:
+    drop-shadow(0 0 40px rgba(92, 168, 223, 0.5))
+    drop-shadow(0 0 80px rgba(168, 85, 200, 0.3));
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+
+/* ═══════════════════════════════════════════════
+   STATS STRIP
+   ═══════════════════════════════════════════════ */
+
+.stats-strip {
+  background: var(--surface-glass);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: var(--space-10) var(--section-pad-x);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+  text-align: center;
+}
+
+
+/* ═══════════════════════════════════════════════
+   ESPECIALIDADES
+   ═══════════════════════════════════════════════ */
+
+#servicios {
+  padding: var(--section-pad-y) var(--section-pad-x);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.services-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: end;
+  margin-bottom: var(--space-16);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+
+/* ═══════════════════════════════════════════════
+   HOW IT WORKS
+   ═══════════════════════════════════════════════ */
+
+.how-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: var(--section-pad-y) var(--section-pad-x);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(-45deg,
+    rgba(14, 38, 81, 0.6),
+    rgba(135, 60, 160, 0.2),
+    rgba(26, 58, 112, 0.5),
+    rgba(41, 122, 191, 0.15)
+  );
+  background-size: 400% 400%;
+  animation: gradientCard 22s ease infinite;
+}
+
+.how-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+  margin-top: var(--space-16);
+  position: relative;
+}
+
+/* Línea conectora entre pasos */
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 2.25rem;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(135, 60, 160, 0.5),
+    rgba(41,  122, 191, 0.5),
+    transparent
+  );
+}
+
+
+/* ═══════════════════════════════════════════════
+   SOBRE NOSOTROS
+   ═══════════════════════════════════════════════ */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-24);
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+  perspective: 900px;   /* Contexto 3D para el efecto tilt */
+}
+
+
+/* ═══════════════════════════════════════════════
+   TESTIMONIOS
+   ═══════════════════════════════════════════════ */
+
+.testimonials-bg {
+  border-top: 1px solid rgba(135, 60, 160, 0.12);
+  border-bottom: 1px solid rgba(135, 60, 160, 0.12);
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background: linear-gradient(-45deg,
+    rgba(87, 39, 130, 0.18),
+    rgba(14, 38, 81, 0.4),
+    rgba(135, 60, 160, 0.12),
+    rgba(26, 58, 112, 0.35)
+  );
+  background-size: 400% 400%;
+  animation: gradientCard 25s ease infinite;
+}
+
+.testimonials-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* Grid de 6 columnas para centrar 5 cards (3 arriba + 2 centradas abajo) */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-14);
+}
+
+
+/* ═══════════════════════════════════════════════
+   PRICING
+   ═══════════════════════════════════════════════ */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-14);
+}
+
+
+/* ═══════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════ */
+
+.faq-list {
+  margin-top: var(--space-14);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ═══════════════════════════════════════════════
+   CTA FINAL
+   ═══════════════════════════════════════════════ */
+
+.cta-section {
+  padding: var(--space-32) var(--section-pad-x);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(-45deg,
+    var(--color-navy),
+    var(--color-purple-light),
+    var(--color-blue),
+    var(--color-navy-mid)
+  );
+  background-size: 400% 400%;
+  animation: gradientCard 14s ease infinite;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+}
+
+.cta-section > * { position: relative; z-index: 1; }
+
+.cta-section h2 {
+  color: var(--color-white);
+  max-width: 700px;
+  margin: 0 auto var(--space-5);
+}
+
+.cta-section p {
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 480px;
+  margin: 0 auto var(--space-10);
+  line-height: 1.75;
+  font-size: var(--text-lg);
+  font-weight: var(--font-light);
+}
+
+.cta-buttons {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════ */
+
+footer {
+  background: #07111f;
+  padding: 4.5rem var(--section-pad-x);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-16);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-bottom {
+  background: #07111f;
+  padding: var(--space-6) var(--section-pad-x);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: var(--font-light);
+}

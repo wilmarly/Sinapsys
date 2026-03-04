@@ -1,0 +1,118 @@
+/*
+ * ─────────────────────────────────────────────────────────────────
+ *  SINAPSYS — BASE
+ *  Reset, box model, tipografía global, helpers de layout.
+ *
+ *  Regla del manual de marca (tipografía):
+ *  • Títulos / mensajes cortos → font-weight: 700 (Bold) o 900 (Black)
+ *  • Párrafos / cuerpo         → font-weight: 300 (Light) o 400 (Regular)
+ * ─────────────────────────────────────────────────────────────────
+ */
+
+/* ─── RESET ─── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-white);
+  font-family: var(--font-family);
+  font-weight: var(--font-light);   /* Manual: párrafos → Light */
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── TIPOGRAFÍA GLOBAL ─── */
+
+/* H1 — Títulos principales de sección hero */
+h1 {
+  font-size: var(--text-h1);
+  font-weight: var(--font-black);    /* Manual: títulos → Black */
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+  animation: fadeUp 0.8s 0.1s ease both;
+  /* Sombra profunda — garantiza legibilidad en todas las fases del gradiente animado */
+  text-shadow:
+    0 2px 32px rgba(0, 0, 0, 0.65),
+    0 1px 8px  rgba(0, 0, 0, 0.45),
+    0 0 60px   rgba(0, 0, 0, 0.25);
+}
+
+/* H2 — Títulos de sección */
+h2 {
+  font-size: var(--text-h2);
+  font-weight: var(--font-black);    /* Manual: títulos → Black */
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+}
+
+/* H3 — Títulos de card (usado dentro de componentes) */
+h3 {
+  font-weight: var(--font-bold);     /* Manual: títulos → Bold */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─── ACENTOS TIPOGRÁFICOS ─── */
+
+/* Acento H1 hero — blanco puro, idéntico al resto del título */
+h1 .accent {
+  color: var(--color-white);
+}
+
+/* Gradiente texto — H2 secciones: degradé principal de marca */
+h2 .accent-purple {
+  background: var(--grad-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 .accent-yellow {
+  color: var(--color-blue-light);
+}
+
+/* ─── EYEBROW — LABEL SOBRE TÍTULOS ─── */
+.section-eyebrow {
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-blue-light);
+  margin-bottom: var(--space-3);
+  font-weight: var(--font-bold);     /* Manual: mensajes cortos → Bold */
+}
+
+/* ─── DESCRIPCIÓN DE SECCIÓN ─── */
+.section-desc {
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.8;
+  max-width: 520px;
+  font-weight: var(--font-light);    /* Manual: párrafos → Light */
+}
+
+/* ─── SECCIÓN BASE ─── */
+.section {
+  padding: var(--section-pad-y) var(--section-pad-x);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* ─── DECORACIÓN NEURONA DE FONDO ─── */
+.neuron-bg {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.06;
+}
