@@ -1,52 +1,321 @@
-/*
- * ─────────────────────────────────────────────────────────────────
- *  SINAPSYS — ANIMATIONS
- *  Keyframes, fade-in por scroll, snap-in con stagger,
- *  hero animated background, y @media prefers-reduced-motion.
- * ─────────────────────────────────────────────────────────────────
+/**
+ * SINAPSYS — Animaciones
+ * Keyframes, fade-in por scroll, snap-in, mesh gradient tipo lámpara de lava,
+ * prefers-reduced-motion.
  */
-
-/* ─── KEYFRAMES ─── */
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(25px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Pulso del punto en el eyebrow del hero */
+/** Pulso del punto en el eyebrow */
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%       { opacity: 0.5; transform: scale(1.5); }
 }
 
-/* Flotación suave de la neurona decorativa del hero */
+/** Flotación de la neurona decorativa */
 @keyframes float {
   0%, 100% { transform: translateY(-50%) translateX(0); }
   50%       { transform: translateY(-52%) translateX(8px); }
 }
 
-/*
- * Gradiente animado del hero — desplaza el background-position a través
- * de un gradiente de 400% × 400% con los 4 colores oficiales de marca.
- */
-@keyframes gradientBG {
-  0%   { background-position:   0%  50%; }
-  50%  { background-position: 100%  50%; }
-  100% { background-position:   0%  50%; }
+/** Deriva suave del fondo */
+@keyframes meshDrift {
+  0%, 100% { background-position: 20% 50%; }
+  25%      { background-position: 70% 25%; }
+  50%      { background-position: 85% 70%; }
+  75%      { background-position: 25% 85%; }
 }
 
-/*
- * Gradiente animado de cards y secciones — idéntica mecánica a gradientBG
- * pero con diferentes duraciones por elemento para evitar sincronía visual.
- */
-@keyframes gradientCard {
-  0%   { background-position:   0%  50%; }
-  50%  { background-position: 100%  50%; }
-  100% { background-position:   0%  50%; }
+/** Palpitación A: ritmo irregular */
+@keyframes meshPulseA {
+  0%, 100% { background-size: 130% 130%; }
+  9%      { background-size: 142% 142%; }
+  23%     { background-size: 128% 128%; }
+  38%     { background-size: 158% 158%; }
+  47%     { background-size: 145% 145%; }
+  61%     { background-size: 133% 133%; }
+  74%     { background-size: 151% 151%; }
+  89%     { background-size: 136% 136%; }
+}
+
+/** Palpitación B: patrón distinto */
+@keyframes meshPulseB {
+  0%, 100% { background-size: 130% 130%; }
+  17%     { background-size: 135% 135%; }
+  31%     { background-size: 152% 152%; }
+  44%     { background-size: 138% 138%; }
+  53%     { background-size: 148% 148%; }
+  67%     { background-size: 131% 131%; }
+  79%     { background-size: 155% 155%; }
+  94%     { background-size: 140% 140%; }
+}
+
+/** Palpitación C: otro ritmo */
+@keyframes meshPulseC {
+  0%, 100% { background-size: 130% 130%; }
+  12%     { background-size: 147% 147%; }
+  28%     { background-size: 132% 132%; }
+  41%     { background-size: 138% 138%; }
+  59%     { background-size: 162% 162%; }
+  72%     { background-size: 144% 144%; }
+  85%     { background-size: 134% 134%; }
+}
+
+/** Brillo A: curva irregular */
+@keyframes meshThinkA {
+  0%, 100% { opacity: 0; }
+  18%     { opacity: 0.06; }
+  37%     { opacity: 0.02; }
+  54%     { opacity: 0.09; }
+  71%     { opacity: 0.04; }
+  86%     { opacity: 0.07; }
+}
+
+/** Brillo B: otro patrón */
+@keyframes meshThinkB {
+  0%, 100% { opacity: 0; }
+  23%     { opacity: 0.08; }
+  42%     { opacity: 0.03; }
+  58%     { opacity: 0.05; }
+  76%     { opacity: 0.09; }
+  91%     { opacity: 0.02; }
+}
+
+/** Brillo C: variante más */
+@keyframes meshThinkC {
+  0%, 100% { opacity: 0; }
+  14%     { opacity: 0.05; }
+  33%     { opacity: 0.08; }
+  49%     { opacity: 0.02; }
+  68%     { opacity: 0.07; }
+  82%     { opacity: 0.04; }
+}
+
+/** Overlay de palpito: brillo centrado con colores de marca — stats-strip tiene shimmer en layout.css */
+.hero::after,
+.how-section::after,
+.testimonials-bg::after,
+.cta-section::after,
+.about-card-main::after,
+.pricing-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 50%,
+    rgba(41, 122, 191, 0.12) 0%,
+    rgba(135, 60, 160, 0.08) 45%,
+    transparent 75%
+  );
+}
+
+.hero::after { animation: meshThinkA 11.4s var(--ease-mesh) infinite; animation-delay: 0s; }
+/* stats-strip::after usa shimmer en layout.css */
+.how-section::after { animation: meshThinkC 12.3s var(--ease-mesh) infinite; animation-delay: 2.1s; }
+.testimonials-bg::after { animation: meshThinkA 15.6s var(--ease-mesh) infinite; animation-delay: 6.3s; }
+.cta-section::after { animation: meshThinkB 10.8s var(--ease-mesh) infinite; animation-delay: 1.2s; }
+.about-card-main::after { animation: meshThinkC 14.7s var(--ease-mesh) infinite; animation-delay: 5.1s; }
+.pricing-card::after { animation: meshThinkA 12.9s var(--ease-mesh) infinite; animation-delay: 2.7s; }
+.pricing-card.featured::after { animation: meshThinkB 13.8s var(--ease-mesh) infinite; animation-delay: 5.4s; }
+
+/** Blobs con círculos derecha: blue→, purple←, navy↑ */
+@keyframes meshLava {
+  0%, 100% {
+    --mesh-blue: 85%;
+    --mesh-purple: 80%;
+    --mesh-navy: 90%;
+    --mesh-blue-x: 12%;
+    --mesh-blue-y: 85%;
+    --mesh-purple-x: 88%;
+    --mesh-purple-y: 82%;
+    --mesh-navy-x: 65%;
+    --mesh-navy-y: 20%;
+  }
+  7% { --mesh-blue-x: 35%; --mesh-blue-y: 78%; }
+  13% {
+    --mesh-blue: 250%;
+    --mesh-blue-x: 58%;
+    --mesh-blue-y: 55%;
+  }
+  20% { --mesh-blue-x: 55%; --mesh-blue-y: 32%; }
+  27% { --mesh-blue-x: 32%; --mesh-blue-y: 48%; }
+  31% {
+    --mesh-blue: 85%;
+    --mesh-blue-x: 28%;
+    --mesh-blue-y: 78%;
+  }
+  39% { --mesh-purple-x: 72%; --mesh-purple-y: 72%; }
+  47% {
+    --mesh-purple: 260%;
+    --mesh-purple-x: 48%;
+    --mesh-purple-y: 55%;
+  }
+  54% { --mesh-purple-x: 28%; --mesh-purple-y: 45%; }
+  60% { --mesh-purple-x: 52%; --mesh-purple-y: 72%; }
+  63% {
+    --mesh-purple: 80%;
+    --mesh-purple-x: 82%;
+    --mesh-purple-y: 75%;
+  }
+  71% { --mesh-navy-x: 55%; --mesh-navy-y: 38%; }
+  79% {
+    --mesh-navy: 245%;
+    --mesh-navy-x: 42%;
+    --mesh-navy-y: 55%;
+  }
+  86% { --mesh-navy-x: 32%; --mesh-navy-y: 68%; }
+  93% { --mesh-navy-x: 58%; --mesh-navy-y: 32%; }
+}
+
+/** Blobs con círculos izquierda: blue←, purple→, navy↓ */
+@keyframes meshLavaAlt {
+  0%, 100% {
+    --mesh-blue: 85%;
+    --mesh-purple: 80%;
+    --mesh-navy: 90%;
+    --mesh-blue-x: 12%;
+    --mesh-blue-y: 85%;
+    --mesh-purple-x: 88%;
+    --mesh-purple-y: 82%;
+    --mesh-navy-x: 65%;
+    --mesh-navy-y: 20%;
+  }
+  9% { --mesh-navy-x: 48%; --mesh-navy-y: 45%; }
+  19% {
+    --mesh-navy: 245%;
+    --mesh-navy-x: 35%;
+    --mesh-navy-y: 62%;
+  }
+  27% { --mesh-navy-x: 55%; --mesh-navy-y: 75%; }
+  34% { --mesh-navy-x: 72%; --mesh-navy-y: 48%; }
+  37% {
+    --mesh-navy: 90%;
+    --mesh-navy-x: 62%;
+    --mesh-navy-y: 30%;
+  }
+  45% { --mesh-purple-x: 72%; --mesh-purple-y: 45%; }
+  53% {
+    --mesh-purple: 260%;
+    --mesh-purple-x: 55%;
+    --mesh-purple-y: 58%;
+  }
+  60% { --mesh-purple-x: 78%; --mesh-purple-y: 72%; }
+  66% { --mesh-purple-x: 62%; --mesh-purple-y: 38%; }
+  69% {
+    --mesh-purple: 80%;
+    --mesh-purple-x: 82%;
+    --mesh-purple-y: 75%;
+  }
+  78% { --mesh-blue-x: 38%; --mesh-blue-y: 68%; }
+  87% {
+    --mesh-blue: 250%;
+    --mesh-blue-x: 28%;
+    --mesh-blue-y: 48%;
+  }
+  94% { --mesh-blue-x: 48%; --mesh-blue-y: 72%; }
+}
+
+/** Blobs con círculos arriba: blue↑, purple↓, navy→ */
+@keyframes meshLavaUp {
+  0%, 100% {
+    --mesh-blue: 85%;
+    --mesh-purple: 80%;
+    --mesh-navy: 90%;
+    --mesh-blue-x: 12%;
+    --mesh-blue-y: 85%;
+    --mesh-purple-x: 88%;
+    --mesh-purple-y: 82%;
+    --mesh-navy-x: 65%;
+    --mesh-navy-y: 20%;
+  }
+  8% { --mesh-blue-x: 28%; --mesh-blue-y: 62%; }
+  14% {
+    --mesh-blue: 250%;
+    --mesh-blue-x: 48%;
+    --mesh-blue-y: 32%;
+  }
+  21% { --mesh-blue-x: 68%; --mesh-blue-y: 48%; }
+  28% { --mesh-blue-x: 38%; --mesh-blue-y: 58%; }
+  32% {
+    --mesh-blue: 85%;
+    --mesh-blue-x: 28%;
+    --mesh-blue-y: 78%;
+  }
+  42% { --mesh-purple-x: 62%; --mesh-purple-y: 68%; }
+  48% {
+    --mesh-purple: 260%;
+    --mesh-purple-x: 52%;
+    --mesh-purple-y: 72%;
+  }
+  55% { --mesh-purple-x: 38%; --mesh-purple-y: 55%; }
+  61% { --mesh-purple-x: 68%; --mesh-purple-y: 82%; }
+  65% {
+    --mesh-purple: 80%;
+    --mesh-purple-x: 82%;
+    --mesh-purple-y: 75%;
+  }
+  73% { --mesh-navy-x: 55%; --mesh-navy-y: 38%; }
+  80% {
+    --mesh-navy: 245%;
+    --mesh-navy-x: 72%;
+    --mesh-navy-y: 52%;
+  }
+  88% { --mesh-navy-x: 55%; --mesh-navy-y: 68%; }
+}
+
+/** Blobs con círculos abajo: blue↓, purple↑, navy← */
+@keyframes meshLavaDown {
+  0%, 100% {
+    --mesh-blue: 85%;
+    --mesh-purple: 80%;
+    --mesh-navy: 90%;
+    --mesh-blue-x: 12%;
+    --mesh-blue-y: 85%;
+    --mesh-purple-x: 88%;
+    --mesh-purple-y: 82%;
+    --mesh-navy-x: 65%;
+    --mesh-navy-y: 20%;
+  }
+  10% { --mesh-navy-x: 52%; --mesh-navy-y: 45%; }
+  18% {
+    --mesh-navy: 245%;
+    --mesh-navy-x: 35%;
+    --mesh-navy-y: 58%;
+  }
+  25% { --mesh-navy-x: 55%; --mesh-navy-y: 72%; }
+  33% {
+    --mesh-navy: 90%;
+    --mesh-navy-x: 62%;
+    --mesh-navy-y: 30%;
+  }
+  42% { --mesh-purple-x: 62%; --mesh-purple-y: 42%; }
+  50% {
+    --mesh-purple: 260%;
+    --mesh-purple-x: 52%;
+    --mesh-purple-y: 28%;
+  }
+  57% { --mesh-purple-x: 35%; --mesh-purple-y: 48%; }
+  64% {
+    --mesh-purple: 80%;
+    --mesh-purple-x: 82%;
+    --mesh-purple-y: 75%;
+  }
+  74% { --mesh-blue-x: 35%; --mesh-blue-y: 62%; }
+  82% {
+    --mesh-blue: 250%;
+    --mesh-blue-x: 48%;
+    --mesh-blue-y: 75%;
+  }
+  90% { --mesh-blue-x: 65%; --mesh-blue-y: 55%; }
 }
 
 
-/* ─── FADE-IN POR SCROLL (IntersectionObserver) ─── */
+/* Fade-in por scroll */
 
 .fade-in {
   opacity: 0;
@@ -60,14 +329,7 @@
 }
 
 
-/* ─── SNAP-IN CARDS ─── */
-/*
- * Cards de Especialidades, Testimonios y Planes usan esta variante:
- * entran desde la izquierda con un easing spring para dar la
- * ilusión de "encajar" en su posición.
- * translateX(-32px): desplazamiento más perceptible y visible.
- * Duración 0.8s: más fluida y elegante, sin resultar lenta.
- */
+/** Snap-in: cards entran desde la izquierda con easing spring */
 
 .snap-card.fade-in {
   transform: translateX(-32px);
@@ -81,11 +343,7 @@
 }
 
 
-/* ─── STAGGER DELAYS — ESPECIALIDADES ─── */
-/*
- * Las 6 cards se animan por columnas para reforzar la lectura izq→der.
- * Delays actualizados para coherencia con duración 0.8s.
- */
+/** Stagger: especialidades por columnas */
 .services-grid .snap-card:nth-child(1) { transition-delay:   0ms; }
 .services-grid .snap-card:nth-child(2) { transition-delay: 100ms; }
 .services-grid .snap-card:nth-child(3) { transition-delay: 200ms; }
@@ -94,11 +352,7 @@
 .services-grid .snap-card:nth-child(6) { transition-delay: 300ms; }
 
 
-/* ─── STAGGER DELAYS — TESTIMONIOS ─── */
-/*
- * Fila 1 (cards 1-3): escalonado normal.
- * Fila 2 (cards 4-5): reinicia el delay (misma lógica visual).
- */
+/** Stagger: testimonios */
 .testimonials-grid .snap-card:nth-child(1) { transition-delay:   0ms; }
 .testimonials-grid .snap-card:nth-child(2) { transition-delay: 110ms; }
 .testimonials-grid .snap-card:nth-child(3) { transition-delay: 220ms; }
@@ -106,34 +360,45 @@
 .testimonials-grid .snap-card:nth-child(5) { transition-delay: 220ms; }
 
 
-/* ─── STAGGER DELAYS — PLANES ─── */
-/*
- * Las 3 pricing cards entran en secuencia izq→der.
- */
+/** Stagger: planes de pricing */
 .pricing-grid .snap-card:nth-child(1) { transition-delay:   0ms; }
 .pricing-grid .snap-card:nth-child(2) { transition-delay: 120ms; }
 .pricing-grid .snap-card:nth-child(3) { transition-delay: 240ms; }
 
 
-/* ─── ACCESIBILIDAD: prefers-reduced-motion ─── */
-/*
- * Los usuarios que han solicitado reducir el movimiento en su SO
- * reciben solo transiciones de color/opacidad. Todos los transforms
- * y keyframes con movimiento se neutralizan.
- */
+/** prefers-reduced-motion: desactiva animaciones y movimiento */
 @media (prefers-reduced-motion: reduce) {
 
-  /* Entrada de elementos por scroll — solo fade, sin desplazamiento */
+  /* Fade-in sin desplazamiento */
   .snap-card.fade-in,
   .fade-in {
     transform: none !important;
     transition: opacity 0.4s ease !important;
   }
 
-  /* Gradiente animado del hero — fijo en posición inicial */
-  .hero { animation: none !important; background-position: 0% 50% !important; }
+  /* Mesh estático, sin palpito ni shimmer */
+  .hero::after,
+  .stats-strip::after,
+  .how-section::after,
+  .testimonials-bg::after,
+  .cta-section::after,
+  .about-card-main::after,
+  .pricing-card::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 
-  /* Hover de cards — solo color, sin transformaciones */
+  .hero,
+  .stats-strip,
+  .how-section,
+  .testimonials-bg,
+  .cta-section,
+  .about-card-main,
+  .pricing-card {
+    animation: none !important;
+  }
+
+  /* Hover: solo color */
   .service-card,
   .testimonial-card,
   .pricing-card,
@@ -145,10 +410,36 @@
     transform: none !important;
   }
 
-  /* Keyframes con movimiento → deshabilitados */
+  /* Drawer: sin transición */
+  .main-nav ul { transition: none; }
+  .main-nav .nav-toggle-bar { transition: none; }
+
+  /* Keyframes: movimiento anulado */
   @keyframes fadeUp      { from { opacity: 0; } to { opacity: 1; } }
   @keyframes pulse       { 0%, 100% { opacity: 1; } }
   @keyframes float       { 0%, 100% { transform: translateY(-50%); } }
-  @keyframes gradientBG  { 0%, 100% { background-position: 0% 50%; } }
-  @keyframes gradientCard { 0%, 100% { background-position: 0% 50%; } }
+  @keyframes meshDrift   { 0%, 100% { background-position: 20% 50%; } }
+  @keyframes meshPulseA { 0%, 100% { background-size: 130% 130%; } }
+  @keyframes meshPulseB { 0%, 100% { background-size: 130% 130%; } }
+  @keyframes meshPulseC { 0%, 100% { background-size: 130% 130%; } }
+  @keyframes meshThinkA { 0%, 100% { opacity: 0; } }
+  @keyframes meshThinkB { 0%, 100% { opacity: 0; } }
+  @keyframes meshThinkC { 0%, 100% { opacity: 0; } }
+  @keyframes statsShimmer { 0%, 100% { transform: translateX(-100%); } } /* desactivado con animation: none */
+  @keyframes meshLava {
+    0%, 100% {
+      --mesh-blue: 85%;
+      --mesh-purple: 80%;
+      --mesh-navy: 90%;
+      --mesh-blue-x: 12%;
+      --mesh-blue-y: 85%;
+      --mesh-purple-x: 88%;
+      --mesh-purple-y: 82%;
+      --mesh-navy-x: 65%;
+      --mesh-navy-y: 20%;
+    }
+  }
+  @keyframes meshLavaAlt { 0%, 100% { --mesh-blue: 85%; --mesh-purple: 80%; --mesh-navy: 90%; --mesh-blue-x: 12%; --mesh-blue-y: 85%; --mesh-purple-x: 88%; --mesh-purple-y: 82%; --mesh-navy-x: 65%; --mesh-navy-y: 20%; } }
+  @keyframes meshLavaUp { 0%, 100% { --mesh-blue: 85%; --mesh-purple: 80%; --mesh-navy: 90%; --mesh-blue-x: 12%; --mesh-blue-y: 85%; --mesh-purple-x: 88%; --mesh-purple-y: 82%; --mesh-navy-x: 65%; --mesh-navy-y: 20%; } }
+  @keyframes meshLavaDown { 0%, 100% { --mesh-blue: 85%; --mesh-purple: 80%; --mesh-navy: 90%; --mesh-blue-x: 12%; --mesh-blue-y: 85%; --mesh-purple-x: 88%; --mesh-purple-y: 82%; --mesh-navy-x: 65%; --mesh-navy-y: 20%; } }
 }

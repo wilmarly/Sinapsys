@@ -1,15 +1,4 @@
-/*
- * ─────────────────────────────────────────────────────────────────
- *  SINAPSYS — BASE
- *  Reset, box model, tipografía global, helpers de layout.
- *
- *  Regla del manual de marca (tipografía):
- *  • Títulos / mensajes cortos → font-weight: 700 (Bold) o 900 (Black)
- *  • Párrafos / cuerpo         → font-weight: 300 (Light) o 400 (Regular)
- * ─────────────────────────────────────────────────────────────────
- */
-
-/* ─── RESET ─── */
+/* SINAPSYS — Base: reset, tipografía global, layout helpers */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -18,61 +7,77 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+}
+
+/* Skip link: visible al enfocar con teclado */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 9999;
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-yellow);
+  color: var(--color-bg);
+  font-weight: var(--font-bold);
+  font-size: var(--text-base);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-purple-lg);
+  transition: top 0.2s ease;
+}
+.skip-link:focus-visible {
+  top: var(--space-4);
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-white);
   font-family: var(--font-family);
-  font-weight: var(--font-light);   /* Manual: párrafos → Light */
+  font-weight: var(--font-light);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: var(--nav-height);
 }
 
-/* ─── TIPOGRAFÍA GLOBAL ─── */
-
-/* H1 — Títulos principales de sección hero */
+/* Tipografía */
 h1 {
   font-size: var(--text-h1);
-  font-weight: var(--font-black);    /* Manual: títulos → Black */
+  font-weight: var(--font-black);
   line-height: 1.05;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   margin-bottom: var(--space-6);
   animation: fadeUp 0.8s 0.1s ease both;
-  /* Sombra profunda — garantiza legibilidad en todas las fases del gradiente animado */
   text-shadow:
     0 2px 32px rgba(0, 0, 0, 0.65),
     0 1px 8px  rgba(0, 0, 0, 0.45),
     0 0 60px   rgba(0, 0, 0, 0.25);
 }
 
-/* H2 — Títulos de sección */
 h2 {
   font-size: var(--text-h2);
-  font-weight: var(--font-black);    /* Manual: títulos → Black */
+  font-weight: var(--font-black);
   text-transform: uppercase;
   line-height: 1.1;
   letter-spacing: -0.01em;
   margin-bottom: var(--space-4);
 }
 
-/* H3 — Títulos de card (usado dentro de componentes) */
 h3 {
-  font-weight: var(--font-bold);     /* Manual: títulos → Bold */
+  font-weight: var(--font-bold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-/* ─── ACENTOS TIPOGRÁFICOS ─── */
-
-/* Acento H1 hero — blanco puro, idéntico al resto del título */
+/* Acentos */
 h1 .accent {
-  color: var(--color-white);
+  color: var(--color-yellow);
 }
 
-/* Gradiente texto — H2 secciones: degradé principal de marca */
 h2 .accent-purple {
   background: var(--grad-main);
   -webkit-background-clip: text;
@@ -81,38 +86,42 @@ h2 .accent-purple {
 }
 
 h2 .accent-yellow {
-  color: var(--color-blue-light);
+  color: var(--color-yellow);
+  text-shadow: 0 0 20px rgba(243, 203, 4, 0.3);
 }
 
-/* ─── EYEBROW — LABEL SOBRE TÍTULOS ─── */
+/* Eyebrow / label */
 .section-eyebrow {
   font-size: var(--text-xs);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-blue-light);
+  color: var(--color-yellow);
   margin-bottom: var(--space-3);
-  font-weight: var(--font-bold);     /* Manual: mensajes cortos → Bold */
+  font-weight: var(--font-bold);
 }
 
-/* ─── DESCRIPCIÓN DE SECCIÓN ─── */
 .section-desc {
   font-size: var(--text-lg);
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.8;
   max-width: 520px;
-  font-weight: var(--font-light);    /* Manual: párrafos → Light */
+  font-weight: var(--font-light);
 }
 
-/* ─── SECCIÓN BASE ─── */
+/* Sección */
 .section {
   padding: var(--section-pad-y) var(--section-pad-x);
   max-width: var(--container-max);
   margin: 0 auto;
 }
+.section-center {
+  text-align: center;
+}
 
-/* ─── DECORACIÓN NEURONA DE FONDO ─── */
-.neuron-bg {
-  position: absolute;
-  pointer-events: none;
-  opacity: 0.06;
+/* Focus visible (teclado) */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: 2px;
 }
