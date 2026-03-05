@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sinapsys — Psicología Online</title>
 
-<!-- Tipografía oficial de marca: Lato (Manual de marca Sinapsys) -->
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet">
 
-<!-- Design System — orden de carga: tokens → base → layout → componentes → animaciones → responsive -->
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles/tokens.css">
 <link rel="stylesheet" href="styles/base.css">
 <link rel="stylesheet" href="styles/layout.css">
@@ -18,19 +16,20 @@
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="logo-text">
-    <!-- Símbolo neurona — Manual: logo principal con neurona (símbolo + nombre) -->
-    <svg class="logo-neuron" viewBox="0 0 60 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M8 20 C8 20 16 8 28 18 C36 25 44 10 52 14" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-      <circle cx="8"  cy="20" r="5"   fill="white"/>
-      <circle cx="52" cy="14" r="5"   fill="white"/>
-      <circle cx="28" cy="18" r="3.5" fill="rgba(255,255,255,0.6)"/>
-    </svg>
-    SINAPSYS
+<a href="#main" class="skip-link">Saltar al contenido</a>
+
+<nav class="main-nav">
+  <a href="#main" class="logo-text">
+    <img src="assets/logo-neurona.svg" alt="" class="logo-neuron" aria-hidden="true">
+    <span class="logo-word">SINAPSYS</span>
   </a>
-  <ul role="list">
+  <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+  </button>
+  <div class="nav-backdrop" aria-hidden="true"></div>
+  <ul id="nav-menu" role="list">
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#sobre-mi">Nosotros</a></li>
     <li><a href="#tarifas">Tarifas</a></li>
@@ -38,28 +37,10 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<main id="main">
 <section class="hero">
-  <!-- Ícono de marca — neurona ampliada, mismo símbolo que el logo -->
   <div class="hero-deco" aria-hidden="true">
-    <svg class="hero-icon" width="360" height="228" viewBox="0 0 60 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="heroIconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stop-color="#5ca8df"/>
-          <stop offset="100%" stop-color="#a855c8"/>
-        </linearGradient>
-        <filter id="heroGlow">
-          <feGaussianBlur stdDeviation="0.8" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <path d="M8 20 C8 20 16 8 28 18 C36 25 44 10 52 14"
-            stroke="url(#heroIconGrad)" stroke-width="2.5" stroke-linecap="round" fill="none"
-            filter="url(#heroGlow)"/>
-      <circle cx="8"  cy="20" r="4.5" fill="url(#heroIconGrad)" opacity="0.95" filter="url(#heroGlow)"/>
-      <circle cx="52" cy="14" r="4.5" fill="url(#heroIconGrad)" opacity="0.95" filter="url(#heroGlow)"/>
-      <circle cx="28" cy="18" r="3"   fill="white"              opacity="0.85"/>
-    </svg>
+    <img src="assets/logo-neurona.svg" alt="" class="hero-icon">
   </div>
 
   <div class="hero-content">
@@ -71,32 +52,30 @@
     <p class="hero-sub">Conectamos neurociencia y bienestar emocional a través de sesiones terapéuticas 100% virtuales. Atención profesional desde donde estés.</p>
     <div class="hero-actions">
       <a href="#contacto" class="btn-main">Agendar sesión gratis</a>
-      <a href="#servicios" class="btn-yellow">Ver servicios</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-strip" id="estadisticas" aria-label="Estadísticas">
-  <div class="fade-in">
+  <div class="stats-strip-item fade-in">
     <div class="stat-num">+<span class="counter" data-target="300">0</span></div>
     <div class="stat-label">Pacientes atendidos</div>
   </div>
-  <div class="fade-in">
+  <div class="stats-strip-item fade-in">
     <div class="stat-num"><span class="counter" data-target="7">0</span> años</div>
     <div class="stat-label">Experiencia clínica</div>
   </div>
-  <div class="fade-in">
+  <div class="stats-strip-item fade-in">
     <div class="stat-num"><span class="counter" data-target="98">0</span>%</div>
     <div class="stat-label">Índice de satisfacción</div>
   </div>
-  <div class="fade-in">
+  <div class="stats-strip-item fade-in">
     <div class="stat-num"><span class="counter" data-target="100">0</span>%</div>
     <div class="stat-label">Confidencial</div>
   </div>
 </div>
 
-<!-- ESPECIALIDADES -->
 <section id="servicios" aria-labelledby="servicios-titulo">
   <div class="services-header">
     <div>
@@ -105,11 +84,10 @@
     </div>
     <p class="section-desc fade-in">Cada mente es única. Nuestros programas terapéuticos combinan evidencia científica y acompañamiento humano para resultados reales.</p>
   </div>
-  <div class="services-grid">
+  <div class="services-grid" role="list" aria-label="Especialidades terapéuticas">
 
-    <article class="service-card fade-in snap-card">
+    <article class="service-card fade-in snap-card" role="listitem">
       <div class="service-icon-wrap" aria-hidden="true">
-        <!-- Ícono: pulso EKG — ansiedad/actividad neuronal -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="2,12 6,12 8,5 11,19 14,8 16,14 18,12 22,12"/>
         </svg>
@@ -119,9 +97,8 @@
       <span class="service-tag">TCC · Exposición</span>
     </article>
 
-    <article class="service-card fade-in snap-card">
+    <article class="service-card fade-in snap-card" role="listitem">
       <div class="service-icon-wrap" aria-hidden="true">
-        <!-- Ícono: luna creciente — estado interior / descanso -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
@@ -131,9 +108,8 @@
       <span class="service-tag">Activación conductual</span>
     </article>
 
-    <article class="service-card fade-in snap-card">
+    <article class="service-card fade-in snap-card" role="listitem">
       <div class="service-icon-wrap" aria-hidden="true">
-        <!-- Ícono: escudo — protección del self / identidad -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
@@ -143,9 +119,8 @@
       <span class="service-tag">Enfoque humanista</span>
     </article>
 
-    <article class="service-card fade-in snap-card">
+    <article class="service-card fade-in snap-card" role="listitem">
       <div class="service-icon-wrap" aria-hidden="true">
-        <!-- Ícono: dos personas — vínculos relacionales -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
           <circle cx="9" cy="7" r="4"/>
@@ -158,9 +133,8 @@
       <span class="service-tag">Terapia sistémica</span>
     </article>
 
-    <article class="service-card fade-in snap-card">
+    <article class="service-card fade-in snap-card" role="listitem">
       <div class="service-icon-wrap" aria-hidden="true">
-        <!-- Ícono: rayo — sobrecarga de energía / burnout -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
         </svg>
@@ -170,9 +144,8 @@
       <span class="service-tag">Mindfulness · ACT</span>
     </article>
 
-    <article class="service-card fade-in snap-card">
+    <article class="service-card fade-in snap-card" role="listitem">
       <div class="service-icon-wrap" aria-hidden="true">
-        <!-- Ícono: pluma — suavidad / proceso de duelo -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
           <line x1="16" y1="8"  x2="2"  y2="22"/>
@@ -187,11 +160,10 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <div class="how-section">
-  <div class="how-inner">
-    <p class="section-eyebrow fade-in" style="text-align:center;">Proceso</p>
-    <h2 class="fade-in" style="text-align:center;">4 pasos hacia tu <span class="accent-yellow">bienestar</span></h2>
+  <div class="how-inner section-center">
+    <p class="section-eyebrow fade-in">Proceso</p>
+    <h2 class="fade-in">4 pasos hacia tu <span class="accent-yellow">bienestar</span></h2>
     <ol class="steps-grid" aria-label="Pasos del proceso terapéutico">
       <li class="step fade-in">
         <div class="step-circle" aria-hidden="true">1</div>
@@ -217,18 +189,10 @@
   </div>
 </div>
 
-<!-- SOBRE NOSOTROS -->
-<section id="sobre-mi" class="section" style="max-width:1280px;" aria-labelledby="about-titulo">
+<section id="sobre-mi" class="section section-about" aria-labelledby="about-titulo">
   <div class="about-grid">
     <div class="about-visual fade-in">
       <div class="about-card-main">
-        <!-- Neurona decorativa — símbolo de marca -->
-        <svg style="position:absolute;top:1.5rem;right:1.5rem;opacity:0.15"
-             width="80" height="50" viewBox="0 0 80 50" fill="none" aria-hidden="true">
-          <path d="M5 28 C15 14 30 8 45 22 C55 32 65 15 75 20" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <circle cx="5"  cy="28" r="5" fill="white"/>
-          <circle cx="75" cy="20" r="5" fill="white"/>
-        </svg>
         <blockquote>
           <p class="about-quote">"La sinapsis no es solo una conexión neuronal, es la metáfora perfecta de lo que sucede en terapia: dos mentes que se conectan para generar cambio."</p>
           <cite>
@@ -254,11 +218,10 @@
   </div>
 </section>
 
-<!-- TESTIMONIOS -->
 <section class="testimonials-bg" aria-labelledby="testimonios-titulo">
-  <div class="testimonials-inner">
-    <p class="section-eyebrow fade-in" style="text-align:center;">Testimonios</p>
-    <h2 id="testimonios-titulo" class="fade-in" style="text-align:center;">Historias de <span class="accent-yellow">transformación</span></h2>
+  <div class="testimonials-inner section-center">
+    <p class="section-eyebrow fade-in">Testimonios</p>
+    <h2 id="testimonios-titulo" class="fade-in">Historias de <span class="accent-yellow">transformación</span></h2>
     <div class="testimonials-grid">
 
       <article class="testimonial-card fade-in snap-card">
@@ -325,10 +288,9 @@
   </div>
 </section>
 
-<!-- PRECIOS -->
-<section id="tarifas" class="section" style="max-width:1280px;" aria-labelledby="tarifas-titulo">
-  <p class="section-eyebrow fade-in" style="text-align:center;">Inversión</p>
-  <h2 id="tarifas-titulo" class="fade-in" style="text-align:center;">Planes que se adaptan<br><span class="accent-purple">a tu vida</span></h2>
+<section id="tarifas" class="section section-center" aria-labelledby="tarifas-titulo">
+  <p class="section-eyebrow fade-in">Inversión</p>
+  <h2 id="tarifas-titulo" class="fade-in">Planes que se adaptan<br><span class="accent-purple">a tu vida</span></h2>
   <div class="pricing-grid">
     <div class="pricing-card fade-in snap-card">
       <div class="pricing-name">Sesión única</div>
@@ -354,7 +316,7 @@
         <li>Seguimiento continuo</li>
         <li>Primera sesión gratis</li>
       </ul>
-      <a href="#contacto" class="btn-pricing-yellow">Comenzar ahora</a>
+      <a href="#contacto" class="btn-pricing-primary">Comenzar ahora</a>
     </div>
     <div class="pricing-card fade-in snap-card">
       <div class="pricing-name">Consulta inicial</div>
@@ -369,91 +331,76 @@
       <a href="#contacto" class="btn-pricing-ghost">Agendar ya</a>
     </div>
   </div>
-  <p style="text-align:center; margin-top:2rem; font-size:0.82rem; color:rgba(255,255,255,0.35);">
+  <p class="pricing-note">
     Acepto tarjeta de crédito, débito y transferencia. Factura disponible.
   </p>
 </section>
 
-<!-- FAQ -->
-<section class="section" style="max-width:1280px; text-align:center;" aria-labelledby="faq-titulo">
+<section class="section section-center" aria-labelledby="faq-titulo">
   <p class="section-eyebrow fade-in">FAQ</p>
   <h2 id="faq-titulo" class="fade-in">Preguntas <span class="accent-yellow">frecuentes</span></h2>
   <div class="faq-list" role="list">
     <div class="faq-item fade-in" role="listitem">
-      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1">
         ¿Cómo funciona la terapia online de Sinapsys?
         <div class="faq-icon" aria-hidden="true">+</div>
       </div>
-      <div class="faq-a">Las sesiones se realizan por videollamada segura (Zoom o Google Meet). Solo necesitas un dispositivo con cámara y conexión a internet. La plataforma garantiza total privacidad y confidencialidad.</div>
+      <div class="faq-a" id="faq-a-1">Las sesiones se realizan por videollamada segura (Zoom o Google Meet). Solo necesitas un dispositivo con cámara y conexión a internet. La plataforma garantiza total privacidad y confidencialidad.</div>
     </div>
     <div class="faq-item fade-in" role="listitem">
-      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2">
         ¿La terapia online tiene la misma efectividad?
         <div class="faq-icon" aria-hidden="true">+</div>
       </div>
-      <div class="faq-a">Sí. Múltiples investigaciones científicas demuestran que la terapia online es igual de efectiva que la presencial. Además, ofrece mayor comodidad, flexibilidad horaria y privacidad desde tu propio entorno.</div>
+      <div class="faq-a" id="faq-a-2">Sí. Múltiples investigaciones científicas demuestran que la terapia online es igual de efectiva que la presencial. Además, ofrece mayor comodidad, flexibilidad horaria y privacidad desde tu propio entorno.</div>
     </div>
     <div class="faq-item fade-in" role="listitem">
-      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3">
         ¿Están seguros mis datos y lo que comparto?
         <div class="faq-icon" aria-hidden="true">+</div>
       </div>
-      <div class="faq-a">Absolutamente. Todo lo compartido en sesión está protegido por el secreto profesional. Utilizamos plataformas encriptadas y nunca compartimos información sin tu consentimiento explícito.</div>
+      <div class="faq-a" id="faq-a-3">Absolutamente. Todo lo compartido en sesión está protegido por el secreto profesional. Utilizamos plataformas encriptadas y nunca compartimos información sin tu consentimiento explícito.</div>
     </div>
     <div class="faq-item fade-in" role="listitem">
-      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4">
         ¿Cuántas sesiones necesito para ver resultados?
         <div class="faq-icon" aria-hidden="true">+</div>
       </div>
-      <div class="faq-a">Depende de cada persona y sus objetivos. Muchos pacientes notan cambios significativos entre las sesiones 4 y 8. En la consulta inicial definimos juntos un plan y estimación realista.</div>
+      <div class="faq-a" id="faq-a-4">Depende de cada persona y sus objetivos. Muchos pacientes notan cambios significativos entre las sesiones 4 y 8. En la consulta inicial definimos juntos un plan y estimación realista.</div>
     </div>
     <div class="faq-item fade-in" role="listitem">
-      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-a-5" id="faq-q-5">
         ¿Puedo cancelar o cambiar mi cita?
         <div class="faq-icon" aria-hidden="true">+</div>
       </div>
-      <div class="faq-a">Sí. Puedes cancelar o reprogramar con al menos 24 horas de anticipación sin ningún costo adicional. Entendemos que la vida tiene imprevistos.</div>
+      <div class="faq-a" id="faq-a-5">Sí. Puedes cancelar o reprogramar con al menos 24 horas de anticipación sin ningún costo adicional. Entendemos que la vida tiene imprevistos.</div>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
 <div class="cta-section" id="contacto">
-  <!-- Neurona decorativa de fondo -->
-  <svg style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0.06;pointer-events:none"
-       width="800" height="400" viewBox="0 0 800 400" fill="none" aria-hidden="true">
-    <path d="M 50 230 C 100 170 200 100 320 200 C 400 260 500 130 620 170 C 700 200 750 150 780 180"
-          stroke="white" stroke-width="20" stroke-linecap="round" fill="none"/>
-    <circle cx="50"  cy="230" r="35" fill="white"/>
-    <circle cx="780" cy="180" r="35" fill="white"/>
-    <circle cx="320" cy="200" r="22" fill="white"/>
-    <circle cx="620" cy="170" r="22" fill="white"/>
-  </svg>
   <p class="section-eyebrow">¿Lista para empezar?</p>
   <h2>Tu primera sesión<br>en Sinapsys <span class="accent-yellow">es gratis</span></h2>
   <p>No necesitas estar en crisis para merecer apoyo. Solo necesitas querer algo diferente. Da el primer paso hoy.</p>
   <div class="cta-buttons">
-    <a href="https://wa.me/5491100000000" class="btn-cta-yellow">💬 WhatsApp</a>
-    <a href="mailto:hola@sinapsys.com" class="btn-cta-white">📧 Escribirnos</a>
+    <a href="https://wa.me/573203470001" class="btn-cta-primary">💬 WhatsApp</a>
+    <a href="mailto:alquimia.gpv@gmail.com" class="btn-cta-white">📧 Escribirnos</a>
     <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" class="btn-cta-white">📅 Agenda online</a>
   </div>
 </div>
 
-<!-- FOOTER -->
+</main>
+
+
 <footer>
   <div class="footer-brand">
     <div class="footer-logo-wrap">
-      <svg width="28" height="18" viewBox="0 0 60 38" fill="none" aria-hidden="true">
-        <path d="M8 20 C8 20 16 8 28 18 C36 25 44 10 52 14" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-        <circle cx="8"  cy="20" r="5"   fill="white"/>
-        <circle cx="52" cy="14" r="5"   fill="white"/>
-        <circle cx="28" cy="18" r="3.5" fill="rgba(255,255,255,0.6)"/>
-      </svg>
+      <img src="assets/logo-neurona.svg" alt="" class="footer-logo-neuron" aria-hidden="true">
       <span class="footer-logo-text">SINAPSYS</span>
     </div>
     <p class="footer-desc">Psicología cognitiva online. Conectamos neurociencia y bienestar emocional para transformar vidas desde cualquier lugar.</p>
   </div>
-  <nav class="footer-col" aria-label="Navegación footer">
+  <nav class="footer-col footer-nav" aria-label="Navegación footer">
     <h4>Sinapsys</h4>
     <ul>
       <li><a href="#servicios">Servicios</a></li>
@@ -465,10 +412,9 @@
   <div class="footer-col">
     <h4>Contacto</h4>
     <ul>
-      <li><a href="mailto:hola@sinapsys.com">hola@sinapsys.com</a></li>
+      <li><a href="mailto:alquimia.gpv@gmail.com">alquimia.gpv@gmail.com</a></li>
       <li><a href="tel:+573203470001">+57 320 3470001</a></li>
-      <li><a href="#" rel="noopener noreferrer">Instagram</a></li>
-      <li><a href="#" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href="https://instagram.com/alquimia.gpv" target="_blank" rel="noopener noreferrer">Instagram</a></li>
     </ul>
   </div>
 </footer>
@@ -477,7 +423,6 @@
   <span>Bogotá D.C., Colombia · Atención online en toda Latinoamérica</span>
 </div>
 
-<!-- JS cargado al final con defer para no bloquear render -->
 <script src="scripts/main.js" defer></script>
 
 </body>

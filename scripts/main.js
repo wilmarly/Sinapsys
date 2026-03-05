@@ -1,16 +1,48 @@
-/**
- * SINAPSYS — main.js
- *
- * Módulos:
- *  1. scrollReveal    — IntersectionObserver para animaciones de entrada
- *  2. tilt3D          — Efecto tilt 3D en la about-card (mousemove)
- *  3. faqAccordion    — Toggle de ítems FAQ
- *  4. counterAnimate  — Contadores numéricos animados en stats strip
- */
-
+/* SINAPSYS — main.js: nav móvil, scroll reveal, tilt 3D, FAQ, contadores */
 'use strict';
 
-/* ─── 1. SCROLL REVEAL ─────────────────────────────────────────── */
+/* 1. Nav móvil */
+(function navMobileMenu() {
+  const nav = document.querySelector('.main-nav');
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const backdrop = document.querySelector('.nav-backdrop');
+
+  if (!nav || !toggle || !menu) return;
+
+  function openMenu() {
+    nav.classList.add('nav-open');
+    document.body.classList.add('nav-menu-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Cerrar menú');
+  }
+
+  function closeMenu() {
+    nav.classList.remove('nav-open');
+    document.body.classList.remove('nav-menu-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Abrir menú');
+  }
+
+  function toggleMenu() {
+    if (nav.classList.contains('nav-open')) closeMenu();
+    else openMenu();
+  }
+
+  toggle.addEventListener('click', toggleMenu);
+  if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+  menu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => closeMenu());
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('nav-open')) closeMenu();
+  });
+})();
+
+
+/* 2. Scroll reveal */
 (function scrollReveal() {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -28,17 +60,11 @@
 })();
 
 
-/* ─── 2. TILT 3D — ABOUT CARD ──────────────────────────────────── */
-/*
- * Efecto de profundidad al mover el cursor sobre la card de cita.
- * Rango de rotación: ±10° en Y, ±8° en X.
- * Se desactiva automáticamente si el usuario prefiere movimiento reducido.
- */
+/* 3. Tilt 3D (about card) — respeta prefers-reduced-motion */
 (function tilt3D() {
   const card = document.querySelector('.about-card-main');
   if (!card) return;
 
-  // Respetar preferencia de accesibilidad del sistema operativo
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   card.addEventListener('mouseenter', () => {
@@ -57,43 +83,51 @@
   card.addEventListener('mouseleave', () => {
     card.style.transition = 'transform 0.5s ease';
     card.style.transform  = '';
-    // Limpiar transition para no interferir con willChange
     setTimeout(() => { card.style.transition = ''; }, 500);
   });
 })();
 
 
-/* ─── 3. FAQ ACCORDION ──────────────────────────────────────────── */
-/*
- * Solo un ítem puede estar abierto a la vez.
- * Click en el ítem activo lo cierra.
- */
+/* 4. FAQ acordeón */
 (function faqAccordion() {
   const items = document.querySelectorAll('.faq-item');
 
+  function setExpanded(item, expanded) {
+    const trigger = item.querySelector('.faq-q[role="button"]');
+    if (trigger) trigger.setAttribute('aria-expanded', String(expanded));
+  }
+
+  function toggleItem(clickedItem) {
+    const isOpen = clickedItem.classList.contains('open');
+
+    items.forEach((i) => {
+      i.classList.remove('open');
+      setExpanded(i, false);
+    });
+
+    if (!isOpen) {
+      clickedItem.classList.add('open');
+      setExpanded(clickedItem, true);
+    }
+  }
+
   items.forEach((item) => {
-    item.addEventListener('click', () => {
-      const isOpen = item.classList.contains('open');
+    const trigger = item.querySelector('.faq-q[role="button"]');
+    if (!trigger) return;
 
-      // Cerrar todos
-      items.forEach((i) => i.classList.remove('open'));
+    item.addEventListener('click', () => toggleItem(item));
 
-      // Abrir el clickeado (si no estaba abierto)
-      if (!isOpen) item.classList.add('open');
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleItem(item);
+      }
     });
   });
 })();
 
 
-/* ─── 4. COUNTER ANIMATE — STATS STRIP ─────────────────────────── */
-/*
- * Observa el contenedor #estadisticas y, al entrar en viewport,
- * anima cada .counter span desde 0 hasta su data-target.
- * El prefijo/sufijo ("+", "%", " años") permanece como texto HTML estático.
- *
- * Curva: ease-out exponencial — arranca rápido, frena al llegar al valor final.
- * Respeta prefers-reduced-motion: muestra el valor final sin animación.
- */
+/* 5. Contadores animados — respeta prefers-reduced-motion */
 (function counterAnimate() {
   const strip = document.getElementById('estadisticas');
   if (!strip) return;

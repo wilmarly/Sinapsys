@@ -10,52 +10,48 @@
    HERO
    ═══════════════════════════════════════════════ */
 
-/*
- * Fondo animado de malla de degradés — 4 paradas que se desplazan
- * en loop a través de background-size: 400% 400%.
- * Paleta oficial: navy · purple-light · blue · navy.
- */
+/** Hero: fondo mesh gradient (paleta manual de marca)
+ * body ya tiene padding-top para nav; hero empieza justo debajo, sin gap */
 .hero {
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   display: flex;
-  align-items: center;
-  padding: 9rem var(--section-pad-x) var(--space-20);
+  align-items: flex-start;
+  padding: var(--space-16) var(--section-pad-x) var(--space-20);
+  padding-top: 3rem;
   overflow: hidden;
-  background: linear-gradient(
-    -45deg,
-    var(--color-navy),
-    var(--color-purple-light),
-    var(--color-blue),
-    var(--color-navy)
-  );
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background: var(--grad-mesh-lava);
+  background-size: 130% 130%;
+  background-position: 0% 0%;
+  animation: meshDrift 13.5s var(--ease-mesh) infinite, meshPulseA 6.5s var(--ease-mesh) infinite, meshLava 6s var(--ease-mesh) infinite;
+  animation-delay: 0s, 0s, 0s;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 660px;
+  margin-top: min(2rem, 5vh);
 }
 
 .hero-deco {
   position: absolute;
-  right: var(--space-16);
+  right: -42vw;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
   animation: float 6s ease-in-out infinite;
 }
 
-/* Ícono de marca en el hero — tamaño y glow */
+/** Ícono neurona hero — mucho más grande, anclado al borde derecho */
 .hero-icon {
-  width: 360px;
+  width: 12000px;
+  max-width: 140vw;
+  max-height: 110vh;
   height: auto;
-  filter:
-    drop-shadow(0 0 40px rgba(92, 168, 223, 0.5))
-    drop-shadow(0 0 80px rgba(168, 85, 200, 0.3));
-  mix-blend-mode: screen;
+  object-fit: contain;
+  filter: invert(1) drop-shadow(0 0 40px rgba(41, 122, 191, 0.5));
   opacity: 0.9;
 }
 
@@ -65,15 +61,57 @@
    ═══════════════════════════════════════════════ */
 
 .stats-strip {
-  background: var(--surface-glass);
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--grad-stats-strip);
+  border-top: 1px solid rgba(135, 60, 160, 0.25);
+  border-bottom: 1px solid rgba(135, 60, 160, 0.25);
   padding: var(--space-10) var(--section-pad-x);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-8);
   text-align: center;
 }
+
+/* Textura sutil — ruido/grano con radial-gradient */
+.stats-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 30%, rgba(135, 60, 160, 0.03) 0%, transparent 1.5%),
+    radial-gradient(circle at 80% 70%, rgba(135, 60, 160, 0.03) 0%, transparent 1.5%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 1%);
+  background-size: 3px 3px, 4px 4px, 2px 2px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Shimmer — barra que recorre todo el strip de izquierda a derecha */
+@keyframes statsShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(450%); }
+}
+
+.stats-strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.08) 65%,
+    transparent 100%
+  );
+  animation: statsShimmer 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
 
 
 /* ═══════════════════════════════════════════════
@@ -111,14 +149,11 @@
   padding: var(--section-pad-y) var(--section-pad-x);
   position: relative;
   overflow: hidden;
-  background: linear-gradient(-45deg,
-    rgba(14, 38, 81, 0.6),
-    rgba(135, 60, 160, 0.2),
-    rgba(26, 58, 112, 0.5),
-    rgba(41, 122, 191, 0.15)
-  );
-  background-size: 400% 400%;
-  animation: gradientCard 22s ease infinite;
+  background: var(--grad-mesh-lava);
+  background-size: 130% 130%;
+  background-position: 0% 0%;
+  animation: meshDrift 14.4s var(--ease-mesh) infinite, meshPulseC 6.9s var(--ease-mesh) infinite, meshLavaUp 6.3s var(--ease-mesh) infinite;
+  animation-delay: 0s, 0s, 1.4s;
 }
 
 .how-inner {
@@ -127,6 +162,7 @@
 }
 
 .steps-grid {
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-8);
@@ -155,6 +191,10 @@
    SOBRE NOSOTROS
    ═══════════════════════════════════════════════ */
 
+.section-about {
+  max-width: 1280px;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -173,17 +213,15 @@
    ═══════════════════════════════════════════════ */
 
 .testimonials-bg {
+  position: relative;
   border-top: 1px solid rgba(135, 60, 160, 0.12);
   border-bottom: 1px solid rgba(135, 60, 160, 0.12);
   padding: var(--section-pad-y) var(--section-pad-x);
-  background: linear-gradient(-45deg,
-    rgba(87, 39, 130, 0.18),
-    rgba(14, 38, 81, 0.4),
-    rgba(135, 60, 160, 0.12),
-    rgba(26, 58, 112, 0.35)
-  );
-  background-size: 400% 400%;
-  animation: gradientCard 25s ease infinite;
+  background: var(--grad-mesh-lava);
+  background-size: 130% 130%;
+  background-position: 0% 0%;
+  animation: meshDrift 16.5s var(--ease-mesh) infinite, meshPulseA 8.1s var(--ease-mesh) infinite, meshLavaDown 7.8s var(--ease-mesh) infinite;
+  animation-delay: 0s, 0s, 0.5s;
 }
 
 .testimonials-inner {
@@ -211,6 +249,13 @@
   margin-top: var(--space-14);
 }
 
+.pricing-note {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
 
 /* ═══════════════════════════════════════════════
    FAQ
@@ -233,14 +278,11 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(-45deg,
-    var(--color-navy),
-    var(--color-purple-light),
-    var(--color-blue),
-    var(--color-navy-mid)
-  );
-  background-size: 400% 400%;
-  animation: gradientCard 14s ease infinite;
+  background: var(--grad-mesh-lava);
+  background-size: 130% 130%;
+  background-position: 0% 0%;
+  animation: meshDrift 12.6s var(--ease-mesh) infinite, meshPulseB 6.2s var(--ease-mesh) infinite, meshLavaAlt 5.4s var(--ease-mesh) infinite;
+  animation-delay: 0s, 0s, 1.2s;
 }
 
 .cta-section::before {
@@ -284,7 +326,7 @@
    ═══════════════════════════════════════════════ */
 
 footer {
-  background: #07111f;
+  background: var(--color-footer-bg);
   padding: 4.5rem var(--section-pad-x);
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
@@ -293,12 +335,12 @@ footer {
 }
 
 .footer-bottom {
-  background: #07111f;
+  background: var(--color-footer-bg);
   padding: var(--space-6) var(--section-pad-x);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: space-between;
   font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.5);
   font-weight: var(--font-light);
 }

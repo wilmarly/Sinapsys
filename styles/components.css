@@ -7,10 +7,10 @@
  */
 
 /* ═══════════════════════════════════════════════
-   NAV
+   NAV PRINCIPAL (header) — no afecta al nav del footer
    ═══════════════════════════════════════════════ */
 
-nav {
+.main-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
@@ -18,10 +18,10 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(10, 20, 45, 0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: none;
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+  background: rgba(14, 38, 81, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .logo-text {
@@ -33,31 +33,34 @@ nav {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  background: var(--grad-blue-purple);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 22px rgba(92, 168, 223, 0.65));
   transition: filter var(--transition-fast);
 }
 
-.logo-text:hover {
-  filter: drop-shadow(0 0 32px rgba(92, 168, 223, 0.95));
+.logo-word {
+  color: var(--color-white);
+  filter: drop-shadow(0 0 22px rgba(41, 122, 191, 0.5));
 }
 
+.logo-text:hover .logo-word {
+  filter: drop-shadow(0 0 32px rgba(41, 122, 191, 0.7));
+}
+
+/* Logo SVG nav — algo más grande, en armonía con el texto SINAPSYS */
 .logo-neuron {
-  width: 44px;
-  height: 28px;
+  width: 64px;
+  height: auto;
+  object-fit: contain;
+  filter: invert(1);
 }
 
-nav ul {
+.main-nav ul {
   list-style: none;
   display: flex;
   gap: var(--space-10);
   align-items: center;
 }
 
-nav a {
+.main-nav a {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.9);
   font-size: var(--text-sm);
@@ -67,7 +70,7 @@ nav a {
   transition: color var(--transition-fast);
 }
 
-nav a:hover { color: var(--color-blue-light); }
+.main-nav a:hover { color: var(--color-blue-light); }
 
 .nav-cta {
   background: var(--grad-main) !important;
@@ -78,6 +81,47 @@ nav a:hover { color: var(--color-blue-light); }
   transition: opacity var(--transition-fast) !important;
 }
 .nav-cta:hover { opacity: 0.85; color: var(--color-white) !important; }
+
+/* Hamburguesa y backdrop — ocultos en desktop */
+.nav-toggle,
+.nav-backdrop {
+  display: none;
+}
+.nav-toggle {
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+.nav-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: 2px;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: white;
+  border-radius: 1px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+/* Logo y enlaces: focus visible para WCAG */
+.logo-text:focus-visible,
+.main-nav a:focus-visible {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: 2px;
+}
 
 
 /* ═══════════════════════════════════════════════
@@ -115,13 +159,14 @@ nav a:hover { color: var(--color-blue-light); }
   max-width: 520px;
   margin-bottom: var(--space-10);
   animation: fadeUp 0.8s 0.2s ease both;
-  font-weight: var(--font-light);   /* Manual: párrafos → Light */
+  font-weight: var(--font-light);
 }
 
 .hero-actions {
   display: flex;
   gap: var(--space-4);
   flex-wrap: wrap;
+  margin-top: var(--space-6);
   animation: fadeUp 0.8s 0.3s ease both;
 }
 
@@ -138,7 +183,7 @@ nav a:hover { color: var(--color-blue-light); }
   border-radius: var(--radius-full);
   text-decoration: none;
   font-size: var(--text-md);
-  font-weight: var(--font-bold);     /* Manual: CTAs → Bold */
+  font-weight: var(--font-bold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   transition: transform var(--transition-fast), opacity var(--transition-base);
@@ -147,25 +192,25 @@ nav a:hover { color: var(--color-blue-light); }
 }
 .btn-main:hover { transform: translateY(-2px); opacity: 0.9; }
 
-/* Btn azul — acento de marca (paleta azul/violeta/blanco) */
-.btn-yellow {
+/* Btn secundario azul — "Ver servicios" / CTAs secundarios */
+.btn-secondary {
   background: var(--color-blue);
   color: var(--color-white);
   padding: var(--space-4) 2.2rem;
   border-radius: var(--radius-full);
   text-decoration: none;
   font-size: var(--text-md);
-  font-weight: var(--font-black);    /* Manual: CTAs → Black */
+  font-weight: var(--font-black);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   transition: transform var(--transition-fast);
   display: inline-block;
   box-shadow: var(--shadow-blue);
 }
-.btn-yellow:hover { transform: translateY(-2px); }
+.btn-secondary:hover { transform: translateY(-2px); }
 
 /* Btn CTA azul (sección final) */
-.btn-cta-yellow {
+.btn-cta-primary {
   background: var(--color-blue);
   color: var(--color-white);
   padding: var(--space-4) 2.2rem;
@@ -178,7 +223,7 @@ nav a:hover { color: var(--color-blue-light); }
   transition: transform var(--transition-fast);
   box-shadow: var(--shadow-blue);
 }
-.btn-cta-yellow:hover { transform: translateY(-2px); }
+.btn-cta-primary:hover { transform: translateY(-2px); }
 
 /* Btn CTA blanco/ghost (sección final) */
 .btn-cta-white {
@@ -197,7 +242,7 @@ nav a:hover { color: var(--color-blue-light); }
 .btn-cta-white:hover { background: rgba(255, 255, 255, 0.25); }
 
 /* Btn pricing azul */
-.btn-pricing-yellow {
+.btn-pricing-primary {
   display: block;
   background: var(--color-blue);
   color: var(--color-white);
@@ -210,7 +255,7 @@ nav a:hover { color: var(--color-blue-light); }
   text-transform: uppercase;
   transition: opacity var(--transition-base);
 }
-.btn-pricing-yellow:hover { opacity: 0.85; }
+.btn-pricing-primary:hover { opacity: 0.85; }
 
 /* Btn pricing ghost */
 .btn-pricing-ghost {
@@ -232,25 +277,42 @@ nav a:hover { color: var(--color-blue-light); }
 
 /* ═══════════════════════════════════════════════
    STATS STRIP
+   Mismo degradé animado que el hero — colores sincronizados
    ═══════════════════════════════════════════════ */
 
 .stat-num {
   font-size: var(--text-stat);
-  font-weight: var(--font-black);    /* Manual: cifras destacadas → Black */
-  background: var(--grad-main);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: var(--font-black);
+  color: #ffffff;
   line-height: 1;
   margin-bottom: var(--space-1);
+  transition: text-shadow var(--transition-base);
 }
 
 .stat-label {
   font-size: var(--text-sm);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.65);
   font-weight: var(--font-light);
+}
+
+/* Stats items — transición visible al hover */
+.stats-strip-item {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  background: transparent;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+.stats-strip-item:hover {
+  transform: scale(1.05);
+  background: rgba(135, 60, 160, 0.12);
+  box-shadow: 0 0 32px rgba(135, 60, 160, 0.2);
+}
+.stats-strip-item:hover .stat-num {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(135, 60, 160, 0.5);
 }
 
 
@@ -268,7 +330,7 @@ nav a:hover { color: var(--color-blue-light); }
   transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
-/* Overlay de gradiente en hover */
+/* Overlay de gradiente oficial (Manual sec. 6.4) en hover */
 .service-card::before {
   content: '';
   position: absolute;
@@ -370,7 +432,7 @@ nav a:hover { color: var(--color-blue-light); }
   justify-content: center;
   margin: 0 auto var(--space-6);
   font-size: 1.5rem;
-  font-weight: var(--font-black);    /* Manual: números/cifras → Black */
+  font-weight: var(--font-black);
   box-shadow: 0 0 30px rgba(135, 60, 160, 0.4);
 }
 
@@ -381,7 +443,7 @@ nav a:hover { color: var(--color-blue-light); }
 
 .step p {
   font-size: var(--text-base);
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.65;
   font-weight: var(--font-light);
 }
@@ -392,7 +454,11 @@ nav a:hover { color: var(--color-blue-light); }
    ═══════════════════════════════════════════════ */
 
 .about-card-main {
-  background: var(--grad-main);
+  background: var(--grad-mesh-lava);
+  background-size: 130% 130%;
+  background-position: 0% 0%;
+  animation: meshDrift 15s var(--ease-mesh) infinite, meshPulseC 7.6s var(--ease-mesh) infinite, meshLavaUp 6.6s var(--ease-mesh) infinite;
+  animation-delay: 0s, 0s, 0.7s;
   border-radius: var(--radius-xl);
   padding: var(--space-12);
   position: relative;
@@ -425,7 +491,7 @@ nav a:hover { color: var(--color-blue-light); }
 }
 
 .about-name {
-  font-weight: var(--font-black);    /* Manual: nombre propio → Black */
+  font-weight: var(--font-black);
   font-size: var(--text-lg);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -449,7 +515,7 @@ nav a:hover { color: var(--color-blue-light); }
 
 /* Credenciales */
 .credentials {
-  margin-top: var(--space-7, 1.75rem);
+  margin-top: var(--space-7);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -561,31 +627,24 @@ nav a:hover { color: var(--color-blue-light); }
   text-align: center;
   position: relative;
   transition: transform var(--transition-base);
-  /* Gradiente animado suave — tonos oscuros navy/purple */
-  background: linear-gradient(-45deg,
-    var(--color-navy),
-    rgba(135, 60, 160, 0.55),
-    var(--color-navy-mid),
-    rgba(41, 122, 191, 0.45)
-  );
-  background-size: 300% 300%;
-  animation: gradientCard 18s ease infinite;
+  background: var(--grad-mesh-lava);
+  background-size: 130% 130%;
+  background-position: 0% 0%;
+  animation: meshDrift 15.9s var(--ease-mesh) infinite, meshPulseA 7.8s var(--ease-mesh) infinite, meshLava 7.2s var(--ease-mesh) infinite;
+  animation-delay: 0s, 0s, 1.1s;
 }
 
 .pricing-card:hover { transform: translateY(-4px); }
 
-/* Card destacada — gradiente más luminoso con colores más brillantes */
+/* Card destacada */
 .pricing-card.featured {
   border-color: transparent;
   box-shadow: var(--shadow-purple-lg);
-  background: linear-gradient(-45deg,
-    var(--color-navy-mid),
-    var(--color-purple-light),
-    var(--color-blue),
-    var(--color-navy)
-  );
-  background-size: 300% 300%;
-  animation: gradientCard 12s ease infinite;
+  background: var(--grad-mesh-lava);
+  background-size: 130% 130%;
+  background-position: 0% 0%;
+  animation: meshDrift 15.9s var(--ease-mesh) infinite, meshPulseB 8s var(--ease-mesh) infinite, meshLavaDown 7.2s var(--ease-mesh) infinite;
+  animation-delay: 0s, 0s, 0.6s;
 }
 
 .pricing-badge {
@@ -616,14 +675,14 @@ nav a:hover { color: var(--color-blue-light); }
 
 .pricing-amount {
   font-size: var(--text-price);
-  font-weight: var(--font-black);    /* Manual: cifras → Black */
+  font-weight: var(--font-black);
   line-height: 1;
   margin-bottom: var(--space-1);
 }
 
 .pricing-period {
   font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: var(--space-8);
   font-weight: var(--font-light);
 }
@@ -672,7 +731,7 @@ nav a:hover { color: var(--color-blue-light); }
   justify-content: space-between;
   align-items: center;
   font-size: var(--text-md);
-  font-weight: var(--font-bold);     /* Manual: pregunta/título → Bold */
+  font-weight: var(--font-bold);
   gap: var(--space-4);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -701,7 +760,7 @@ nav a:hover { color: var(--color-blue-light); }
 /* Respuesta — Manual: párrafo → Light */
 .faq-a {
   font-size: var(--text-md);
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.75;
   max-height: 0;
   overflow: hidden;
@@ -710,7 +769,7 @@ nav a:hover { color: var(--color-blue-light); }
 }
 
 .faq-item.open .faq-a {
-  max-height: 200px;
+  max-height: 500px;   /* Flexible para respuestas largas */
   padding-top: var(--space-4);
 }
 
@@ -726,8 +785,16 @@ nav a:hover { color: var(--color-blue-light); }
   margin-bottom: var(--space-4);
 }
 
+.footer-logo-neuron {
+  width: 190px;
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
+  filter: invert(1);
+}
+
 .footer-logo-text {
-  font-weight: var(--font-black);    /* Manual: marca → Black */
+  font-weight: var(--font-black);
   font-size: 1.3rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -735,7 +802,7 @@ nav a:hover { color: var(--color-blue-light); }
 
 .footer-desc {
   font-size: var(--text-base);
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.55);
   line-height: 1.75;
   max-width: 280px;
   font-weight: var(--font-light);
@@ -755,7 +822,7 @@ nav a:hover { color: var(--color-blue-light); }
 
 .footer-col a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.6);
   font-size: var(--text-base);
   transition: color var(--transition-base);
   font-weight: var(--font-light);

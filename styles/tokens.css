@@ -1,29 +1,68 @@
-/*
- * ─────────────────────────────────────────────────────────────────
- *  SINAPSYS — DESIGN TOKENS
- *  Fuente: Manual de marca Sinapsys (Alquimia GPV)
- *
- *  Paleta: 7 colores oficiales + 3 degradés + neutros
- *  Tipografía: Lato (Light 300, Regular 400, Bold 700, Black 900)
- * ─────────────────────────────────────────────────────────────────
- */
+/* SINAPSYS — Design tokens (Manual de Marca) */
+@property --mesh-blue {
+  syntax: '<length-percentage>';
+  initial-value: 90%;
+  inherits: false;
+}
+@property --mesh-purple {
+  syntax: '<length-percentage>';
+  initial-value: 85%;
+  inherits: false;
+}
+@property --mesh-navy {
+  syntax: '<length-percentage>';
+  initial-value: 95%;
+  inherits: false;
+}
+@property --mesh-blue-x {
+  syntax: '<length-percentage>';
+  initial-value: 12%;
+  inherits: false;
+}
+@property --mesh-blue-y {
+  syntax: '<length-percentage>';
+  initial-value: 85%;
+  inherits: false;
+}
+@property --mesh-purple-x {
+  syntax: '<length-percentage>';
+  initial-value: 88%;
+  inherits: false;
+}
+@property --mesh-purple-y {
+  syntax: '<length-percentage>';
+  initial-value: 82%;
+  inherits: false;
+}
+@property --mesh-navy-x {
+  syntax: '<length-percentage>';
+  initial-value: 65%;
+  inherits: false;
+}
+@property --mesh-navy-y {
+  syntax: '<length-percentage>';
+  initial-value: 20%;
+  inherits: false;
+}
 
 :root {
 
   /* ─── PALETA DE COLOR — MANUAL DE MARCA ─── */
 
-  /* Primarios — paleta activa (azul, violeta, blanco) */
+  /* Primarios — paleta oficial Manual de Marca */
   --color-navy:         #0E2651;   /* HEX oficial — RGB 14, 38, 81   */
-  --color-navy-mid:     #1a3a70;   /* Intermedio para fondos          */
+  --color-navy-mid:     #1a3a70;   /* Intermedio navy-blue — fondos animados */
   --color-blue:         #297ABF;   /* HEX oficial — RGB 41, 122, 191 */
-  --color-blue-light:   #5ca8df;   /* Variante clara para acentos     */
   --color-purple:       #873CA0;   /* HEX oficial — RGB 135, 60, 160 */
-  --color-purple-light: #a855c8;   /* Variante clara para hover/glow  */
 
-  /* Secundarios — desactivados en esta versión de paleta */
-  --color-green-dark:   #263D0B;   /* HEX oficial — no usado          */
-  --color-green:        #577019;   /* HEX oficial — no usado          */
-  --color-yellow:       #F3CB04;   /* HEX oficial — no usado          */
+  /* Variantes para hover/glow (solo estados interactivos, NO en logos) */
+  --color-blue-light:   #5ca8df;   /* Derivada de #297ABF — hover/accent en fondos oscuros */
+  --color-purple-light: #a855c8;   /* Derivada de #873CA0 — glow/hover en fondos oscuros */
+
+  /* Secundarios — paleta oficial */
+  --color-green-dark:   #263D0B;   /* HEX oficial — degradé 2        */
+  --color-green:        #577019;   /* HEX oficial — degradé 2        */
+  --color-yellow:       #F3CB04;   /* HEX oficial — acentos, degradé 2 */
 
   /* Neutros — todos del manual */
   --color-black:        #000000;
@@ -35,13 +74,37 @@
 
   /* Canvas (fondo global del sitio — navy medio, más legible que #0a0f1e) */
   --color-bg:           #0d1c38;
+  --color-footer-bg:    #07111f;   /* Footer más oscuro que el hero */
 
-  /* ─── DEGRADÉS OFICIALES (3 degradés de la marca — versión luminosa) ─── */
-  /* navy-mid → purple-light: más claro y vibrante que navy → purple */
-  --grad-main:          linear-gradient(135deg, var(--color-navy-mid) 0%, var(--color-purple-light) 100%);
-  --grad-green:         linear-gradient(135deg, var(--color-green-dark) 0%, var(--color-green) 100%);
-  /* blue-light → purple-light: más luminoso y claro */
-  --grad-blue-purple:   linear-gradient(135deg, var(--color-blue-light) 0%, var(--color-purple-light) 100%);
+  /* ─── DEGRADÉS OFICIALES — Manual de Marca ─── */
+
+  /* Mesh animado: focos flotantes (azul, morado, navy) */
+  --grad-mesh-lava: radial-gradient(ellipse var(--mesh-blue) var(--mesh-blue) at var(--mesh-blue-x) var(--mesh-blue-y), #297ABF 0%, transparent 50%),
+    radial-gradient(ellipse var(--mesh-purple) var(--mesh-purple) at var(--mesh-purple-x) var(--mesh-purple-y), #873CA0 0%, transparent 50%),
+    radial-gradient(ellipse var(--mesh-navy) var(--mesh-navy) at var(--mesh-navy-x) var(--mesh-navy-y), #0E2651 0%, transparent 48%),
+    radial-gradient(ellipse 70% 70% at 50% 45%, #0E2651 0%, transparent 55%),
+    radial-gradient(ellipse 60% 80% at 18% 25%, rgba(135, 60, 160, 0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 65% at 85% 28%, rgba(41, 122, 191, 0.5) 0%, transparent 55%),
+    #0E2651;
+
+  /* Degradé 1 oficial — Manual sec. 6.4: azul → azul oscuro → morado */
+  --grad-main: linear-gradient(90deg, #297ABF 0%, #0E2651 50%, #873CA0 100%);
+  --grad-blue-purple: linear-gradient(90deg, #297ABF 0%, #0E2651 50%, #873CA0 100%);
+
+  /* Degradé 2: Verde oscuro → Verde → Amarillo */
+  --grad-green: linear-gradient(135deg, #263D0B 0%, #577019 50%, #F3CB04 100%);
+
+  /* Degradé 3: Grises → Negro */
+  --grad-dark: linear-gradient(180deg, #212121 0%, #000000 50%, #303030 100%);
+
+  /* Stats strip — morado #873CA0 acorde al manual */
+  --grad-stats-strip: linear-gradient(115deg,
+    rgba(14, 38, 81, 0.96) 0%,
+    rgba(135, 60, 160, 0.18) 25%,
+    rgba(135, 60, 160, 0.35) 50%,
+    rgba(135, 60, 160, 0.18) 75%,
+    rgba(14, 38, 81, 0.96) 100%
+  );
 
   /* ─── TIPOGRAFÍA — MANUAL DE MARCA ─── */
 
@@ -80,6 +143,7 @@
   --space-4:   1rem;      /* 16px  */
   --space-5:   1.25rem;   /* 20px  */
   --space-6:   1.5rem;    /* 24px  */
+  --space-7:   1.75rem;   /* 28px  */
   --space-8:   2rem;      /* 32px  */
   --space-10:  2.5rem;    /* 40px  */
   --space-12:  3rem;      /* 48px  */
@@ -92,10 +156,9 @@
 
   /* ─── LAYOUT ─── */
   --container-max:    1280px;
-  --section-pad-x:    var(--space-20);   /* 80px desktop */
-  --section-pad-y:    var(--space-28);   /* 112px desktop */
-  --section-pad-x-sm: var(--space-8);   /* 32px mobile  */
-  --section-pad-y-sm: var(--space-16);  /* 64px mobile  */
+  --nav-height:       4.2rem;           /* ~67px — altura nav real, hero sin gap */
+  --section-pad-x:    var(--space-20);
+  --section-pad-y:    var(--space-28);
 
   /* ─── BORDER RADIUS ─── */
   --radius-sm:   0.75rem;   /* icon wrappers, tags     */
@@ -110,18 +173,28 @@
   --shadow-purple-md: 0 10px 36px rgba(135, 60, 160, 0.18);
   --shadow-purple-lg: 0 20px 60px rgba(135, 60, 160, 0.40);
   --shadow-blue:      0 8px 30px rgba( 41, 122, 191, 0.35);
-  --shadow-glow-sm:   0 0 0 1px rgba(168, 85,  200, 0.18);
-  --shadow-glow-md:   0 0 0 1px rgba(168, 85,  200, 0.15);
+  --shadow-glow-sm:   0 0 0 1px rgba(135, 60, 160, 0.2);
+  --shadow-glow-md:   0 0 0 1px rgba(135, 60, 160, 0.18);
 
   /* ─── TRANSICIONES ─── */
   --transition-fast:   0.2s ease;
   --transition-base:   0.35s ease;
-  --transition-slow:   0.5s ease;
   --ease-spring:       cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-mesh:         cubic-bezier(0.45, 0, 0.55, 1); /* Transiciones difuminadas entre movimientos */
+
+  /* Valores base de focos (meshLava los anima) */
+  --mesh-blue: 85%;
+  --mesh-purple: 80%;
+  --mesh-navy: 90%;
+  --mesh-blue-x: 12%;
+  --mesh-blue-y: 85%;
+  --mesh-purple-x: 88%;
+  --mesh-purple-y: 82%;
+  --mesh-navy-x: 65%;
+  --mesh-navy-y: 20%;
 
   /* ─── SUPERFICIES (glass / frosted) ─── */
   --surface-glass:       rgba(255, 255, 255, 0.04);
-  --surface-glass-hover: rgba(255, 255, 255, 0.07);
   --border-subtle:       rgba(255, 255, 255, 0.08);
-  --border-focus:        rgba(168, 85, 200, 0.55);
+  --border-focus:        rgba(135, 60, 160, 0.55);
 }
