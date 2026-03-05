@@ -75,7 +75,7 @@ h3 {
 
 /* Acentos */
 h1 .accent {
-  color: var(--color-yellow);
+  color: var(--color-white);
 }
 
 h2 .accent-purple {
@@ -86,8 +86,7 @@ h2 .accent-purple {
 }
 
 h2 .accent-yellow {
-  color: var(--color-yellow);
-  text-shadow: 0 0 20px rgba(243, 203, 4, 0.3);
+  color: var(--color-white);
 }
 
 /* Eyebrow / label */
@@ -95,7 +94,7 @@ h2 .accent-yellow {
   font-size: var(--text-xs);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-yellow);
+  color: var(--color-white);
   margin-bottom: var(--space-3);
   font-weight: var(--font-bold);
 }
