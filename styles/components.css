@@ -45,12 +45,11 @@
   filter: drop-shadow(0 0 32px rgba(41, 122, 191, 0.7));
 }
 
-/* Logo SVG nav — algo más grande, en armonía con el texto SINAPSYS */
+/* Logo principal nav */
 .logo-neuron {
-  width: 64px;
+  width: 180px;
   height: auto;
   object-fit: contain;
-  filter: invert(1);
 }
 
 .main-nav ul {
@@ -786,11 +785,9 @@
 }
 
 .footer-logo-neuron {
-  width: 190px;
-  max-width: 150px;
+  width: 180px;
   height: auto;
   object-fit: contain;
-  filter: invert(1);
 }
 
 .footer-logo-text {
